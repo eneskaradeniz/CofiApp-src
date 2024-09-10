@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  cofiapp.api:
+    image: ${DOCKER_REGISTRY-}cofiappapi
+    container_name: CofiApp.Api
+    build:
+      context: .
+      dockerfile: CofiApp.Api/Dockerfile
+    environment:
+      DB_PASSWORD: "Strong_password_123!"
+    ports:
+      - 5000:8080
+      - 5001:8081
+    depends_on:
+      - cofiapp.database
+
+  cofiapp.database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: CofiApp.Db
+    volumes:
+      - ./.containers/database:/var/opt/mssql/data
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Strong_password_123!"
+    ports:
+      - "1433:1433"
+
+  cofiapp.seq:
+    image: datalust/seq:latest
+    container_name: CofiApp.Seq
+    environment:
+      ACCEPT_EULA: 'Y'
+    ports:
+      - 5341:5341
+      - 8081:80
