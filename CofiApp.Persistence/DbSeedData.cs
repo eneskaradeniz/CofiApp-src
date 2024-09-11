@@ -4,6 +4,8 @@ using CofiApp.Application.Abstractions.Data;
 using CofiApp.Domain.Authentication;
 using CofiApp.Domain.MenuCategories;
 using CofiApp.Domain.ProductMenuCategories;
+using CofiApp.Domain.ProductOptionGroups;
+using CofiApp.Domain.ProductOptions;
 using CofiApp.Domain.Products;
 using CofiApp.Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -133,6 +135,162 @@ namespace CofiApp.Persistence
             };
 
             builder.Entity<Product>().HasData(latte, mocha, iceAmericano, iceLatte);
+
+            // ürünlerin hepsine Boy Seçimi opsiyon grubu oluştur
+
+            ProductOptionGroup latteBoySecimi = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductId = latte.Id,
+                Name = "Boy Seçimi",
+                IsRequired = true,
+                AllowMultiple = false,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOptionGroup mochaBoySecimi = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductId = mocha.Id,
+                Name = "Boy Seçimi",
+                IsRequired = true,
+                AllowMultiple = false,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOptionGroup iceLatteBoySecimi = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductId = iceLatte.Id,
+                Name = "Boy Seçimi",
+                IsRequired = true,
+                AllowMultiple = false,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOptionGroup iceAmericanoBoySecimi = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductId = iceAmericano.Id,
+                Name = "Boy Seçimi",
+                IsRequired = true,
+                AllowMultiple = false,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            builder.Entity<ProductOptionGroup>().HasData(latteBoySecimi, mochaBoySecimi, iceLatteBoySecimi, iceAmericanoBoySecimi);
+
+            // her boy seçimine 3 opsiyon ekle (Standart, Orta, Büyük)
+
+            ProductOption latteStandart = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductOptionGroupId = latteBoySecimi.Id,
+                Name = "Standart",
+                Price = 0,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOption latteOrta = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductOptionGroupId = latteBoySecimi.Id,
+                Name = "Orta",
+                Price = 2,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOption latteBuyuk = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductOptionGroupId = latteBoySecimi.Id,
+                Name = "Büyük",
+                Price = 4,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOption mochaStandart = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductOptionGroupId = mochaBoySecimi.Id,
+                Name = "Standart",
+                Price = 0,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOption mochaOrta = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductOptionGroupId = mochaBoySecimi.Id,
+                Name = "Orta",
+                Price = 2,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOption mochaBuyuk = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductOptionGroupId = mochaBoySecimi.Id,
+                Name = "Büyük",
+                Price = 4,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOption iceLatteStandart = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductOptionGroupId = iceLatteBoySecimi.Id,
+                Name = "Standart",
+                Price = 0,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOption iceLatteOrta = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductOptionGroupId = iceLatteBoySecimi.Id,
+                Name = "Orta",
+                Price = 2,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOption iceLatteBuyuk = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductOptionGroupId = iceLatteBoySecimi.Id,
+                Name = "Büyük",
+                Price = 4,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOption iceAmericanoStandart = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductOptionGroupId = iceAmericanoBoySecimi.Id,
+                Name = "Standart",
+                Price = 0,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOption iceAmericanoOrta = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductOptionGroupId = iceAmericanoBoySecimi.Id,
+                Name = "Orta",
+                Price = 2,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            ProductOption iceAmericanoBuyuk = new()
+            {
+                Id = Guid.NewGuid(),
+                ProductOptionGroupId = iceAmericanoBoySecimi.Id,
+                Name = "Büyük",
+                Price = 4,
+                CreatedOnUtc = _dateTime.UtcNow
+            };
+
+            builder.Entity<ProductOption>().HasData(latteStandart, latteOrta, latteBuyuk, mochaStandart, mochaOrta, mochaBuyuk, iceLatteStandart, iceLatteOrta, iceLatteBuyuk, iceAmericanoStandart, iceAmericanoOrta, iceAmericanoBuyuk);
 
             // 3 ürünü 3 kategoriye de ekle (latte ve mocha öne çıkaranlar ve sıcak kahveler kategorisine, ice americano soğuk kahveler kategorisine)
 

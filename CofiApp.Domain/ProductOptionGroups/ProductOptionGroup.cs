@@ -18,5 +18,12 @@ namespace CofiApp.Domain.ProductOptionGroups
         public Product Product { get; set; }
 
         public ICollection<ProductOption> ProductOptions { get; set; }
+
+        public void Update(string name, bool isRequired, bool allowMultiple)
+        {
+            Name = name;
+            IsRequired = isRequired;
+            AllowMultiple = allowMultiple;
+        }
     }
 }

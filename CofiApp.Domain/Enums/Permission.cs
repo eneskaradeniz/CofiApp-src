@@ -29,6 +29,11 @@
         CreateProduct = 21,
         UpdateProduct = 22,
         RemoveProduct = 23,
-        UpdateProductMenuCategories = 24
+        UpdateProductMenuCategories = 24,
+
+        GetProductOptionGroupsWithOptions = 25,
+        CreateProductOptionGroup = 26,
+        UpdateProductOptionGroup = 27,
+        RemoveProductOptionGroup = 28,
     }
 }

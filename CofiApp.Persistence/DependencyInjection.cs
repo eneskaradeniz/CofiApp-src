@@ -2,6 +2,7 @@
 using CofiApp.Domain.Authentication;
 using CofiApp.Domain.MenuCategories;
 using CofiApp.Domain.ProductMenuCategories;
+using CofiApp.Domain.ProductOptionGroups;
 using CofiApp.Domain.Products;
 using CofiApp.Domain.UserRefreshTokens;
 using CofiApp.Domain.Users;
@@ -47,6 +48,8 @@ namespace CofiApp.Persistence
             services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddScoped<IProductMenuCategoryRepository, ProductMenuCategoryRepository>();
+
+            services.AddScoped<IProductOptionGroupRepository, ProductOptionGroupRepository>();
 
             return services;
         }

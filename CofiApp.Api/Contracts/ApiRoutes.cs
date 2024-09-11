@@ -99,6 +99,28 @@
             public const string PublicGetById = "public/products/{productId:guid}"; // ürünü ve tüm opsiyonlarla birlikte getir
         }
 
+        public static class ProductOptionGroups
+        {
+            // Shop
+
+            public const string GetWithOptions = "product-option-groups/{productId:guid}/options"; // ürünün gruplarını opsiyonları ile birlikte getir
+
+            public const string Create = "product-option-groups/{productId:guid}"; // ürüne grup oluştur
+
+            public const string Update = "product-option-groups/{productOptionGroupId:guid}"; // ürünün oluşan grubunu düzenle
+
+            public const string Remove = "product-option-groups/{productOptionGroupId:guid}"; // ürünün oluşan grubunu sil
+        }
+
+        public static class ProductOptions
+        {
+            public const string Create = "product-options/{productOptionGroupId:guid}"; // ürünün grubuna opsiyon ekle
+
+            public const string Update = "product-options/{productOptionId:guid}"; // ürünün grubunun opsiyonunu düzenle
+
+            public const string Remove = "product-options/{productOptionId:guid}"; // ürünün grubunun opsiyonunu sil
+        }
+
         public static class Baskets
         {
             // Customer
@@ -131,26 +153,6 @@
             public const string PublicCreate = "orders"; // sipariş oluştur
 
             public const string PublicCancel = "orders/{orderId:guid}/cancel"; // siparişi iptal et
-        }
-
-        // product option
-        public static class ProductOptionGroups
-        {
-            // Shop
-                 
-            public const string Get = "product-option-groups/{productId:guid}"; // ürünün gruplarını opsiyonlarıyla birlikte getir
-
-            public const string Create = "product-option-groups/{productId:guid}"; // ürüne grup oluştur
-                                                                                   // 
-            public const string Update = "product-option-groups/{productId:guid}"; // ürünün oluşan grubunu düzenle
-           
-            public const string Remove = "product-option-groups/{productId:guid}"; // ürünün oluşan grubunu sil
-           
-            public const string AddOption = "product-option-groups/{productOptionGroupId:guid}/options"; // ürünün grubuna opsiyon ekle
-           
-            public const string UpdateOption = "product-option-groups/{productOptionGroupId:guid}/options/{productOptionId:guid}"; // ürünün grubunun opsiyonunu düzenle
-           
-            public const string RemoveOption = "product-option-groups/{productOptionGroupId:guid}/options/{productOptionId:guid}"; // ürünün grubunun opsiyonunu sil
         }
     }
 }

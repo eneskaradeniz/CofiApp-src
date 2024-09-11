@@ -74,5 +74,14 @@ namespace CofiApp.Application.Core.Errors
             internal static Error ProductIdIsRequired = new("ProductMenuCategories.ProductIdIsRequired", "The product id is required.");
             internal static Error MenuCategoryIdsIsRequired = new("ProductMenuCategories.MenuCategoryIdsIsRequired", "The menu category ids is required.");
         }
+
+        internal static class ProductOptionGroups
+        {
+            internal static Error IdIsRequired = new("ProductOptionGroups.IdIsRequired", "The id is required.");
+            internal static Error NameIsRequired = new("ProductOptionGroups.NameIsRequired", "The name is required.");
+            internal static Error NameIsTooLong = new("ProductOptionGroups.NameIsTooLong", "The name is too long.");
+            internal static Error IsRequiredIsRequired = new("ProductOptionGroups.IsRequiredIsRequired", "The is required is required.");
+            internal static Error AllowMultipleIsRequired = new("ProductOptionGroups.AllowMultipleIsRequired", "The allow multiple is required.");
+        }
     }
 }
