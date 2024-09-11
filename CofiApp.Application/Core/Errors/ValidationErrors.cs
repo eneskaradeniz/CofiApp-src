@@ -50,5 +50,29 @@ namespace CofiApp.Application.Core.Errors
 
             internal static Error NameIsTooLong = new("Roles.NameTooLong", "The name is too long.");
         }
+
+        internal static class MenuCategories
+        {
+            internal static Error IdIsRequired = new("MenuCategories.IdIsRequired", "The id is required.");
+            internal static Error NameIsRequired = new("MenuCategories.NameIsRequired", "The name is required.");
+            internal static Error NameIsTooLong = new("MenuCategories.NameIsTooLong", "The name is too long.");
+        }
+
+        internal static class Products
+        {
+            internal static Error MenuCategoryIdIsRequired = new("Products.MenuCategoryIdIsRequired", "The menu category id is required.");
+            internal static Error IdIsRequired = new("Products.IdIsRequired", "The id is required.");
+            internal static Error NameIsRequired = new("Products.NameIsRequired", "The name is required.");
+            internal static Error NameIsTooLong = new("Products.NameIsTooLong", "The name is too long.");
+            internal static Error DescriptionIsTooLong = new("Products.DescriptionIsTooLong", "The description is too long.");
+            internal static Error PriceIsRequired = new("Products.PriceIsRequired", "The price is required.");
+            internal static Error PriceIsInvalid = new("Products.PriceIsInvalid", "The price is invalid.");
+        }
+
+        internal static class ProductMenuCategories
+        {
+            internal static Error ProductIdIsRequired = new("ProductMenuCategories.ProductIdIsRequired", "The product id is required.");
+            internal static Error MenuCategoryIdsIsRequired = new("ProductMenuCategories.MenuCategoryIdsIsRequired", "The menu category ids is required.");
+        }
     }
 }

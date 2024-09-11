@@ -37,6 +37,8 @@ namespace CofiApp.Persistence.Configurations
                 .WithMany(b => b.Orders)
                 .HasForeignKey(o => o.BasketId)
                 .IsRequired();
+
+            builder.HasQueryFilter(o => !o.User.Deleted);
         }
     }
 }

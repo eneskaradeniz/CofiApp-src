@@ -37,6 +37,8 @@ namespace CofiApp.Persistence.Configurations
             builder.HasMany(pog => pog.ProductOptions)
                 .WithOne(po => po.ProductOptionGroup)
                 .HasForeignKey(po => po.ProductOptionGroupId);
+
+            builder.HasQueryFilter(pog => !pog.Product.Deleted);
         }
     }
 }

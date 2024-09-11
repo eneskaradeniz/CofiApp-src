@@ -21,11 +21,11 @@ namespace CofiApp.Domain.Users
         public string? PhoneNumber { get; set; }
         public bool PhoneNumberConfirmed { get; set; }
 
-        public DateTime CreatedOnUtc { get; set; }
-        public DateTime? ModifiedOnUtc { get; set; }
-
         public DateTime? DeletedOnUtc { get; set; }
         public bool Deleted { get; set; }
+
+        public DateTime CreatedOnUtc { get; set; }
+        public DateTime? ModifiedOnUtc { get; set; }
 
         public ICollection<Basket> Baskets { get; set; }
         public ICollection<Order> Orders { get; set; }

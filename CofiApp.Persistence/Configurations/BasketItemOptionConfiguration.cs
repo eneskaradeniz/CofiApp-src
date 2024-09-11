@@ -29,6 +29,8 @@ namespace CofiApp.Persistence.Configurations
 
             builder.Property(po => po.ModifiedOnUtc)
                 .IsRequired(false);
+
+            builder.HasQueryFilter(po => !po.BasketItem.Basket.User.Deleted);
         }
     }
 }

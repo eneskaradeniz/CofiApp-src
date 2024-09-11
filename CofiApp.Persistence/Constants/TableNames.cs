@@ -5,6 +5,7 @@
         public const string Users = "Users";
         public const string Products = "Products";
         public const string MenuCategories = "MenuCategories";
+        public const string ProductMenuCategories = "ProductMenuCategories";
         public const string ProductCategories = "ProductCategories";
         public const string ProductOptionGroups = "ProductOptionGroups";
         public const string ProductOptions = "ProductOptions";

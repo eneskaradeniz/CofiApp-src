@@ -20,5 +20,7 @@ namespace CofiApp.Persistence.Repositories
         public void Update(TEntity entity) => DbContext.Set<TEntity>().Update(entity);
 
         public void Remove(TEntity entity) => DbContext.Remove(entity);
+
+        public void RemoveRange(IReadOnlyCollection<TEntity> entities) => DbContext.Set<TEntity>().RemoveRange(entities);
     }
 }

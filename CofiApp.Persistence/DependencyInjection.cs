@@ -1,5 +1,8 @@
 ﻿using CofiApp.Application.Abstractions.Data;
 using CofiApp.Domain.Authentication;
+using CofiApp.Domain.MenuCategories;
+using CofiApp.Domain.ProductMenuCategories;
+using CofiApp.Domain.Products;
 using CofiApp.Domain.UserRefreshTokens;
 using CofiApp.Domain.Users;
 using CofiApp.Domain.UserVerificationTokens;
@@ -38,6 +41,12 @@ namespace CofiApp.Persistence
             services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
 
             services.AddScoped<IUserVerificationTokenRepository, UserVerificationTokenRepository>();
+
+            services.AddScoped<IMenuCategoryRepository, MenuCategoryRepository>();
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddScoped<IProductMenuCategoryRepository, ProductMenuCategoryRepository>();
 
             return services;
         }

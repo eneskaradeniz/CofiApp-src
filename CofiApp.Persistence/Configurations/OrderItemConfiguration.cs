@@ -41,6 +41,8 @@ namespace CofiApp.Persistence.Configurations
             builder.Property(oi => oi.TotalPrice)
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
+
+            builder.HasQueryFilter(oi => !oi.Order.User.Deleted);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CofiApp.Domain.Core.Abstractions;
 using CofiApp.Domain.Core.Primitives;
-using CofiApp.Domain.ProductCategories;
+using CofiApp.Domain.ProductMenuCategories;
+using CofiApp.Domain.Products;
 
 namespace CofiApp.Domain.MenuCategories
 {
@@ -11,6 +12,7 @@ namespace CofiApp.Domain.MenuCategories
         public DateTime CreatedOnUtc { get; set; }
         public DateTime? ModifiedOnUtc { get; set; }
 
-        public ICollection<ProductCategory> ProductCategories { get; set; } = [];
+        public ICollection<ProductMenuCategory> ProductMenuCategories { get; set; } = [];
+        public ICollection<Product> Products { get; set; } = [];
     }
 }

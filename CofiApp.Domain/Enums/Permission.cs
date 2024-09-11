@@ -18,6 +18,17 @@
         AssignPermission = 12,
         AssignUser = 13,
 
-        CreateProduct = 14,
+        GetMenuCategories = 14,
+        GetMenuCategoryById = 15,
+        CreateMenuCategory = 16,
+        UpdateMenuCategory = 17,
+        RemoveMenuCategory = 18,
+
+        GetProducts = 19,
+        GetProductById = 20,
+        CreateProduct = 21,
+        UpdateProduct = 22,
+        RemoveProduct = 23,
+        UpdateProductMenuCategories = 24
     }
 }

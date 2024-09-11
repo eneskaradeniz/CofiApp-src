@@ -84,10 +84,10 @@ namespace CofiApp.Persistence.Migrations
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                    Deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -95,7 +95,7 @@ namespace CofiApp.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductCategories",
+                name: "ProductMenuCategories",
                 columns: table => new
                 {
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -103,15 +103,15 @@ namespace CofiApp.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductCategories", x => new { x.ProductId, x.MenuCategoryId });
+                    table.PrimaryKey("PK_ProductMenuCategories", x => new { x.ProductId, x.MenuCategoryId });
                     table.ForeignKey(
-                        name: "FK_ProductCategories_MenuCategories_MenuCategoryId",
+                        name: "FK_ProductMenuCategories_MenuCategories_MenuCategoryId",
                         column: x => x.MenuCategoryId,
                         principalTable: "MenuCategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductCategories_Products_ProductId",
+                        name: "FK_ProductMenuCategories_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -406,6 +406,16 @@ namespace CofiApp.Persistence.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "MenuCategories",
+                columns: new[] { "Id", "CreatedOnUtc", "ModifiedOnUtc", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("22326620-890e-4528-b363-025eabc5779b"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3823), null, "Öne Çıkaranlar" },
+                    { new Guid("39eeace4-99f7-494f-88d3-c6c84f2e50b7"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3825), null, "Sıcak Kahveler" },
+                    { new Guid("7e96c6ac-2c98-4a46-a2d8-707f42771fb2"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3827), null, "Soğuk Kahveler" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Permissions",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
@@ -423,28 +433,62 @@ namespace CofiApp.Persistence.Migrations
                     { 11, "GetRolesPermissions" },
                     { 12, "AssignPermission" },
                     { 13, "AssignUser" },
-                    { 14, "CreateProduct" }
+                    { 14, "GetMenuCategories" },
+                    { 15, "GetMenuCategoryById" },
+                    { 16, "CreateMenuCategory" },
+                    { 17, "UpdateMenuCategory" },
+                    { 18, "RemoveMenuCategory" },
+                    { 19, "GetProducts" },
+                    { 20, "GetProductById" },
+                    { 21, "CreateProduct" },
+                    { 22, "UpdateProduct" },
+                    { 23, "RemoveProduct" },
+                    { 24, "UpdateProductMenuCategories" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CreatedOnUtc", "DeletedOnUtc", "Description", "ModifiedOnUtc", "Name", "Price" },
+                values: new object[,]
+                {
+                    { new Guid("173b8030-db4d-44a2-bb80-629842a4d7a2"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3874), null, null, null, "Ice Americano", 10m },
+                    { new Guid("3e4fa8f5-6b33-4503-9034-73e565e04619"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3872), null, null, null, "Mocha", 20m },
+                    { new Guid("8357b246-fc5d-4092-882e-9564fad8c46d"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3875), null, null, null, "Ice Latte", 10m },
+                    { new Guid("f395abdb-b9d9-4fae-a691-e083809a6172"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3860), null, null, null, "Latte", 15m }
                 });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "CreatedOnUtc", "ModifiedOnUtc", "Name" },
-                values: new object[] { new Guid("3b38fe6e-a27b-412c-acb5-ebbc6cdf9402"), new DateTime(2024, 9, 10, 9, 50, 3, 373, DateTimeKind.Utc).AddTicks(3766), null, "Administrator" });
+                values: new object[] { new Guid("6dd96f70-f6de-4434-97f2-cf611d3cb8a0"), new DateTime(2024, 9, 11, 22, 6, 29, 481, DateTimeKind.Utc).AddTicks(6784), null, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedOnUtc", "DeletedOnUtc", "Email", "EmailConfirmed", "FirstName", "LastName", "ModifiedOnUtc", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed" },
-                values: new object[] { new Guid("0f7ab4b0-02e5-4feb-859c-4c5854fcc1af"), new DateTime(2024, 9, 10, 9, 50, 3, 377, DateTimeKind.Utc).AddTicks(1198), null, "eneskrdnz28@gmail.com", false, "Enes", "Karadeniz", null, "05DB4C0BF2724F2E904B104131DB789637C520DB3C75E09176465C3EAEF45107-1C693307C1E5C4C4DCAB6C95B5F4E286", null, false });
+                values: new object[] { new Guid("9e935ced-b2c7-4f71-8e44-393e5736f9f0"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3670), null, "eneskrdnz28@gmail.com", true, "Enes", "Karadeniz", null, "E53C20DA2C98C2F99EEDF39B2EBBDF34A8A915C612E5933276FB581809D6CF53-863C433952E958EDB9CA67DD8504CD70", null, false });
+
+            migrationBuilder.InsertData(
+                table: "ProductMenuCategories",
+                columns: new[] { "MenuCategoryId", "ProductId" },
+                values: new object[,]
+                {
+                    { new Guid("7e96c6ac-2c98-4a46-a2d8-707f42771fb2"), new Guid("173b8030-db4d-44a2-bb80-629842a4d7a2") },
+                    { new Guid("22326620-890e-4528-b363-025eabc5779b"), new Guid("3e4fa8f5-6b33-4503-9034-73e565e04619") },
+                    { new Guid("39eeace4-99f7-494f-88d3-c6c84f2e50b7"), new Guid("3e4fa8f5-6b33-4503-9034-73e565e04619") },
+                    { new Guid("7e96c6ac-2c98-4a46-a2d8-707f42771fb2"), new Guid("8357b246-fc5d-4092-882e-9564fad8c46d") },
+                    { new Guid("22326620-890e-4528-b363-025eabc5779b"), new Guid("f395abdb-b9d9-4fae-a691-e083809a6172") },
+                    { new Guid("39eeace4-99f7-494f-88d3-c6c84f2e50b7"), new Guid("f395abdb-b9d9-4fae-a691-e083809a6172") }
+                });
 
             migrationBuilder.InsertData(
                 table: "RolePermission",
                 columns: new[] { "PermissionId", "RoleId" },
-                values: new object[] { 1, new Guid("3b38fe6e-a27b-412c-acb5-ebbc6cdf9402") });
+                values: new object[] { 1, new Guid("6dd96f70-f6de-4434-97f2-cf611d3cb8a0") });
 
             migrationBuilder.InsertData(
                 table: "UserRole",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { new Guid("3b38fe6e-a27b-412c-acb5-ebbc6cdf9402"), new Guid("0f7ab4b0-02e5-4feb-859c-4c5854fcc1af") });
+                values: new object[] { new Guid("6dd96f70-f6de-4434-97f2-cf611d3cb8a0"), new Guid("9e935ced-b2c7-4f71-8e44-393e5736f9f0") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BasketItemOptions_BasketItemId",
@@ -472,6 +516,12 @@ namespace CofiApp.Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MenuCategories_Name",
+                table: "MenuCategories",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderItemOptions_OrderItemId",
                 table: "OrderItemOptions",
                 column: "OrderItemId");
@@ -492,8 +542,8 @@ namespace CofiApp.Persistence.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductCategories_MenuCategoryId",
-                table: "ProductCategories",
+                name: "IX_ProductMenuCategories_MenuCategoryId",
+                table: "ProductMenuCategories",
                 column: "MenuCategoryId");
 
             migrationBuilder.CreateIndex(
@@ -545,7 +595,7 @@ namespace CofiApp.Persistence.Migrations
                 name: "OrderItemOptions");
 
             migrationBuilder.DropTable(
-                name: "ProductCategories");
+                name: "ProductMenuCategories");
 
             migrationBuilder.DropTable(
                 name: "RolePermission");

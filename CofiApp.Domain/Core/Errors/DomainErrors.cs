@@ -48,5 +48,10 @@ namespace CofiApp.Domain.Core.Errors
             public static Error DuplicateEmail => new("User.DuplicateEmail", "The specified email is already in use.");
             public static Error EmailAlreadyExists => new("User.EmailAlreadyExists", "The specified email is already in use.");
         }
+
+        public static class MenuCategory
+        {
+            public static Error DuplicateName => new("MenuCategory.DuplicateName", "The specified name is already in use.");
+        }
     }
 }

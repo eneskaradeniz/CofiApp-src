@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CofiApp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240910095003_init")]
+    [Migration("20240911220629_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -110,7 +110,57 @@ namespace CofiApp.Persistence.Migrations
                         new
                         {
                             Id = 14,
+                            Name = "GetMenuCategories"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "GetMenuCategoryById"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "CreateMenuCategory"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "UpdateMenuCategory"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "RemoveMenuCategory"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "GetProducts"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "GetProductById"
+                        },
+                        new
+                        {
+                            Id = 21,
                             Name = "CreateProduct"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Name = "UpdateProduct"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Name = "RemoveProduct"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Name = "UpdateProductMenuCategories"
                         });
                 });
 
@@ -140,8 +190,8 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3b38fe6e-a27b-412c-acb5-ebbc6cdf9402"),
-                            CreatedOnUtc = new DateTime(2024, 9, 10, 9, 50, 3, 373, DateTimeKind.Utc).AddTicks(3766),
+                            Id = new Guid("6dd96f70-f6de-4434-97f2-cf611d3cb8a0"),
+                            CreatedOnUtc = new DateTime(2024, 9, 11, 22, 6, 29, 481, DateTimeKind.Utc).AddTicks(6784),
                             Name = "Administrator"
                         });
                 });
@@ -163,7 +213,7 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            RoleId = new Guid("3b38fe6e-a27b-412c-acb5-ebbc6cdf9402"),
+                            RoleId = new Guid("6dd96f70-f6de-4434-97f2-cf611d3cb8a0"),
                             PermissionId = 1
                         });
                 });
@@ -185,8 +235,8 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("0f7ab4b0-02e5-4feb-859c-4c5854fcc1af"),
-                            RoleId = new Guid("3b38fe6e-a27b-412c-acb5-ebbc6cdf9402")
+                            UserId = new Guid("9e935ced-b2c7-4f71-8e44-393e5736f9f0"),
+                            RoleId = new Guid("6dd96f70-f6de-4434-97f2-cf611d3cb8a0")
                         });
                 });
 
@@ -292,7 +342,30 @@ namespace CofiApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("MenuCategories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("22326620-890e-4528-b363-025eabc5779b"),
+                            CreatedOnUtc = new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3823),
+                            Name = "Öne Çıkaranlar"
+                        },
+                        new
+                        {
+                            Id = new Guid("39eeace4-99f7-494f-88d3-c6c84f2e50b7"),
+                            CreatedOnUtc = new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3825),
+                            Name = "Sıcak Kahveler"
+                        },
+                        new
+                        {
+                            Id = new Guid("7e96c6ac-2c98-4a46-a2d8-707f42771fb2"),
+                            CreatedOnUtc = new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3827),
+                            Name = "Soğuk Kahveler"
+                        });
                 });
 
             modelBuilder.Entity("CofiApp.Domain.OrderItemOptions.OrderItemOption", b =>
@@ -398,7 +471,7 @@ namespace CofiApp.Persistence.Migrations
                     b.ToTable("Orders", (string)null);
                 });
 
-            modelBuilder.Entity("CofiApp.Domain.ProductCategories.ProductCategory", b =>
+            modelBuilder.Entity("CofiApp.Domain.ProductMenuCategories.ProductMenuCategory", b =>
                 {
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
@@ -410,7 +483,39 @@ namespace CofiApp.Persistence.Migrations
 
                     b.HasIndex("MenuCategoryId");
 
-                    b.ToTable("ProductCategories", (string)null);
+                    b.ToTable("ProductMenuCategories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = new Guid("f395abdb-b9d9-4fae-a691-e083809a6172"),
+                            MenuCategoryId = new Guid("22326620-890e-4528-b363-025eabc5779b")
+                        },
+                        new
+                        {
+                            ProductId = new Guid("f395abdb-b9d9-4fae-a691-e083809a6172"),
+                            MenuCategoryId = new Guid("39eeace4-99f7-494f-88d3-c6c84f2e50b7")
+                        },
+                        new
+                        {
+                            ProductId = new Guid("3e4fa8f5-6b33-4503-9034-73e565e04619"),
+                            MenuCategoryId = new Guid("22326620-890e-4528-b363-025eabc5779b")
+                        },
+                        new
+                        {
+                            ProductId = new Guid("3e4fa8f5-6b33-4503-9034-73e565e04619"),
+                            MenuCategoryId = new Guid("39eeace4-99f7-494f-88d3-c6c84f2e50b7")
+                        },
+                        new
+                        {
+                            ProductId = new Guid("173b8030-db4d-44a2-bb80-629842a4d7a2"),
+                            MenuCategoryId = new Guid("7e96c6ac-2c98-4a46-a2d8-707f42771fb2")
+                        },
+                        new
+                        {
+                            ProductId = new Guid("8357b246-fc5d-4092-882e-9564fad8c46d"),
+                            MenuCategoryId = new Guid("7e96c6ac-2c98-4a46-a2d8-707f42771fb2")
+                        });
                 });
 
             modelBuilder.Entity("CofiApp.Domain.ProductOptionGroups.ProductOptionGroup", b =>
@@ -515,6 +620,40 @@ namespace CofiApp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f395abdb-b9d9-4fae-a691-e083809a6172"),
+                            CreatedOnUtc = new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3860),
+                            Deleted = false,
+                            Name = "Latte",
+                            Price = 15m
+                        },
+                        new
+                        {
+                            Id = new Guid("3e4fa8f5-6b33-4503-9034-73e565e04619"),
+                            CreatedOnUtc = new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3872),
+                            Deleted = false,
+                            Name = "Mocha",
+                            Price = 20m
+                        },
+                        new
+                        {
+                            Id = new Guid("173b8030-db4d-44a2-bb80-629842a4d7a2"),
+                            CreatedOnUtc = new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3874),
+                            Deleted = false,
+                            Name = "Ice Americano",
+                            Price = 10m
+                        },
+                        new
+                        {
+                            Id = new Guid("8357b246-fc5d-4092-882e-9564fad8c46d"),
+                            CreatedOnUtc = new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3875),
+                            Deleted = false,
+                            Name = "Ice Latte",
+                            Price = 10m
+                        });
                 });
 
             modelBuilder.Entity("CofiApp.Domain.UserRefreshTokens.UserRefreshToken", b =>
@@ -633,14 +772,14 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0f7ab4b0-02e5-4feb-859c-4c5854fcc1af"),
-                            CreatedOnUtc = new DateTime(2024, 9, 10, 9, 50, 3, 377, DateTimeKind.Utc).AddTicks(1198),
+                            Id = new Guid("9e935ced-b2c7-4f71-8e44-393e5736f9f0"),
+                            CreatedOnUtc = new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3670),
                             Deleted = false,
                             Email = "eneskrdnz28@gmail.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             FirstName = "Enes",
                             LastName = "Karadeniz",
-                            PasswordHash = "05DB4C0BF2724F2E904B104131DB789637C520DB3C75E09176465C3EAEF45107-1C693307C1E5C4C4DCAB6C95B5F4E286",
+                            PasswordHash = "E53C20DA2C98C2F99EEDF39B2EBBDF34A8A915C612E5933276FB581809D6CF53-863C433952E958EDB9CA67DD8504CD70",
                             PhoneNumberConfirmed = false
                         });
                 });
@@ -765,16 +904,16 @@ namespace CofiApp.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CofiApp.Domain.ProductCategories.ProductCategory", b =>
+            modelBuilder.Entity("CofiApp.Domain.ProductMenuCategories.ProductMenuCategory", b =>
                 {
                     b.HasOne("CofiApp.Domain.MenuCategories.MenuCategory", "MenuCategory")
-                        .WithMany("ProductCategories")
+                        .WithMany("ProductMenuCategories")
                         .HasForeignKey("MenuCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CofiApp.Domain.Products.Product", "Product")
-                        .WithMany("ProductCategories")
+                        .WithMany("ProductMenuCategories")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -842,7 +981,7 @@ namespace CofiApp.Persistence.Migrations
 
             modelBuilder.Entity("CofiApp.Domain.MenuCategories.MenuCategory", b =>
                 {
-                    b.Navigation("ProductCategories");
+                    b.Navigation("ProductMenuCategories");
                 });
 
             modelBuilder.Entity("CofiApp.Domain.OrderItems.OrderItem", b =>
@@ -862,7 +1001,7 @@ namespace CofiApp.Persistence.Migrations
 
             modelBuilder.Entity("CofiApp.Domain.Products.Product", b =>
                 {
-                    b.Navigation("ProductCategories");
+                    b.Navigation("ProductMenuCategories");
 
                     b.Navigation("ProductOptionGroups");
                 });

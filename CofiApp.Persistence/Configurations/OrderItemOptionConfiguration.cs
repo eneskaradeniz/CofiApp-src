@@ -31,6 +31,8 @@ namespace CofiApp.Persistence.Configurations
 
             builder.Property(oio => oio.ModifiedOnUtc)
                 .IsRequired(false);
+
+            builder.HasQueryFilter(oio => !oio.OrderItem.Order.User.Deleted);
         }
     }
 }
