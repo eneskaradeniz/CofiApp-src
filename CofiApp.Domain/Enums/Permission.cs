@@ -35,5 +35,9 @@
         CreateProductOptionGroup = 26,
         UpdateProductOptionGroup = 27,
         RemoveProductOptionGroup = 28,
+
+        CreateProductOption = 29,
+        UpdateProductOption = 30,
+        RemoveProductOption = 31,
     }
 }

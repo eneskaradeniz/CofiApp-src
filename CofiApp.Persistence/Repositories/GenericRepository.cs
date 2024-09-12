@@ -1,6 +1,7 @@
 ﻿using CofiApp.Application.Abstractions.Data;
 using CofiApp.Domain.Core.Primitives;
 using CofiApp.Domain.Core.Primitives.Maybe;
+using Microsoft.EntityFrameworkCore;
 
 namespace CofiApp.Persistence.Repositories
 {
@@ -10,6 +11,12 @@ namespace CofiApp.Persistence.Repositories
         protected GenericRepository(IDbContext dbContext) => DbContext = dbContext;
 
         protected IDbContext DbContext { get; }
+        
+        public async Task<bool> AnyAsync(Guid id) =>
+            await DbContext.Set<TEntity>()
+                .AsNoTracking()
+                .AsQueryable()
+                .AnyAsync(x => x.Id == id);
 
         public async Task<Maybe<TEntity>> GetByIdAsync(Guid id) => await DbContext.GetByIdAsync<TEntity>(id);
 

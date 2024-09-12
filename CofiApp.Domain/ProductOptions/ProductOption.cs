@@ -14,5 +14,11 @@ namespace CofiApp.Domain.ProductOptions
 
         public Guid ProductOptionGroupId { get; set; }
         public ProductOptionGroup ProductOptionGroup { get; set; }
+
+        public void Update(string name, decimal price)
+        {
+            Name = name;
+            Price = price;
+        }
     }
 }
