@@ -23,7 +23,7 @@ namespace CofiApp.Application.Authentication.Commands.EmailConfirmation
 
         public async Task<Result> Handle(EmailConfirmationCommand request, CancellationToken cancellationToken)
         {
-            var maybeUserVerificationToken = await _userVerificationTokenRepository.GetByTokenAsync(request.Token);
+            var maybeUserVerificationToken = await _userVerificationTokenRepository.GetByTokenAsync(request.Token, cancellationToken);
 
             if (maybeUserVerificationToken.HasNoValue)
             {

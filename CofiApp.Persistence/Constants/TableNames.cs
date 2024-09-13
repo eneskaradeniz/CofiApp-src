@@ -11,6 +11,7 @@
         public const string ProductOptions = "ProductOptions";
         public const string Baskets = "Baskets";
         public const string BasketItems = "BasketItems";
+        public const string BasketItemOptionGroups = "BasketItemOptionGroups";
         public const string BasketItemOptions = "BasketItemOptions";
         public const string Orders = "Orders";
         public const string OrderItems = "OrderItems";

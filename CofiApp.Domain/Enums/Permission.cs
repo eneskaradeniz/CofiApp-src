@@ -39,5 +39,11 @@
         CreateProductOption = 29,
         UpdateProductOption = 30,
         RemoveProductOption = 31,
+
+        GetActiveBasketByUser = 32,
+        CreateBasketItem = 33,
+        UpdateBasketItem = 34,
+        UpdateBasketItemQuantity = 35,
+        ClearBasket = 36,
     }
 }

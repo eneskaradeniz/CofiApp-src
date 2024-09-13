@@ -19,7 +19,7 @@ namespace CofiApp.Application.Roles.Commands.CreateRole
 
         public async Task<Result> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
         {
-            if (!await _roleRepository.IsNameUniqueAsync(request.Name))
+            if (!await _roleRepository.IsNameUniqueAsync(request.Name, cancellationToken))
             {
                 return Result.Failure(DomainErrors.Authentication.DuplicateName);
             }

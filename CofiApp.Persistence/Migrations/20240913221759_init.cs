@@ -333,28 +333,28 @@ namespace CofiApp.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BasketItemOptions",
+                name: "BasketItemOptionGroups",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BasketItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductOptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductOptionGroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BasketItemOptions", x => x.Id);
+                    table.PrimaryKey("PK_BasketItemOptionGroups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BasketItemOptions_BasketItems_BasketItemId",
+                        name: "FK_BasketItemOptionGroups_BasketItems_BasketItemId",
                         column: x => x.BasketItemId,
                         principalTable: "BasketItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BasketItemOptions_ProductOptions_ProductOptionId",
-                        column: x => x.ProductOptionId,
-                        principalTable: "ProductOptions",
+                        name: "FK_BasketItemOptionGroups_ProductOptionGroups_ProductOptionGroupId",
+                        column: x => x.ProductOptionGroupId,
+                        principalTable: "ProductOptionGroups",
                         principalColumn: "Id");
                 });
 
@@ -384,6 +384,32 @@ namespace CofiApp.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BasketItemOptions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BasketItemOptionGroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductOptionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BasketItemOptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BasketItemOptions_BasketItemOptionGroups_BasketItemOptionGroupId",
+                        column: x => x.BasketItemOptionGroupId,
+                        principalTable: "BasketItemOptionGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BasketItemOptions_ProductOptions_ProductOptionId",
+                        column: x => x.ProductOptionId,
+                        principalTable: "ProductOptions",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderItemOptions",
                 columns: table => new
                 {
@@ -410,9 +436,9 @@ namespace CofiApp.Persistence.Migrations
                 columns: new[] { "Id", "CreatedOnUtc", "ModifiedOnUtc", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("22326620-890e-4528-b363-025eabc5779b"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3823), null, "Öne Çıkaranlar" },
-                    { new Guid("39eeace4-99f7-494f-88d3-c6c84f2e50b7"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3825), null, "Sıcak Kahveler" },
-                    { new Guid("7e96c6ac-2c98-4a46-a2d8-707f42771fb2"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3827), null, "Soğuk Kahveler" }
+                    { new Guid("3ced96f4-16b6-42fe-9834-c43c4a9a45f3"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8876), null, "Öne Çıkaranlar" },
+                    { new Guid("a6270d62-e249-4950-9149-73a23c6a0794"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8886), null, "Sıcak Kahveler" },
+                    { new Guid("bee109d8-b4eb-446f-855b-ea45d2ff279b"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8887), null, "Soğuk Kahveler" }
                 });
 
             migrationBuilder.InsertData(
@@ -443,7 +469,16 @@ namespace CofiApp.Persistence.Migrations
                     { 21, "CreateProduct" },
                     { 22, "UpdateProduct" },
                     { 23, "RemoveProduct" },
-                    { 24, "UpdateProductMenuCategories" }
+                    { 24, "UpdateProductMenuCategories" },
+                    { 25, "GetProductOptionGroupsWithOptions" },
+                    { 26, "CreateProductOptionGroup" },
+                    { 27, "UpdateProductOptionGroup" },
+                    { 28, "RemoveProductOptionGroup" },
+                    { 29, "CreateProductOption" },
+                    { 30, "UpdateProductOption" },
+                    { 31, "RemoveProductOption" },
+                    { 32, "GetActiveBasketByUser" },
+                    { 33, "CreateBasketItem" }
                 });
 
             migrationBuilder.InsertData(
@@ -451,49 +486,89 @@ namespace CofiApp.Persistence.Migrations
                 columns: new[] { "Id", "CreatedOnUtc", "DeletedOnUtc", "Description", "ModifiedOnUtc", "Name", "Price" },
                 values: new object[,]
                 {
-                    { new Guid("173b8030-db4d-44a2-bb80-629842a4d7a2"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3874), null, null, null, "Ice Americano", 10m },
-                    { new Guid("3e4fa8f5-6b33-4503-9034-73e565e04619"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3872), null, null, null, "Mocha", 20m },
-                    { new Guid("8357b246-fc5d-4092-882e-9564fad8c46d"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3875), null, null, null, "Ice Latte", 10m },
-                    { new Guid("f395abdb-b9d9-4fae-a691-e083809a6172"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3860), null, null, null, "Latte", 15m }
+                    { new Guid("39c73dda-4b0a-4bae-b801-2cc36a980a54"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8925), null, null, null, "Ice Latte", 10m },
+                    { new Guid("89460128-431a-402a-af93-a99bda22a2b5"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8923), null, null, null, "Mocha", 20m },
+                    { new Guid("acb90efa-e40a-4be1-9fac-4f3e597d260f"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8924), null, null, null, "Ice Americano", 10m },
+                    { new Guid("ce91c203-e70f-48ad-a42d-44451bc3b1bb"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8921), null, null, null, "Latte", 15m }
                 });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "CreatedOnUtc", "ModifiedOnUtc", "Name" },
-                values: new object[] { new Guid("6dd96f70-f6de-4434-97f2-cf611d3cb8a0"), new DateTime(2024, 9, 11, 22, 6, 29, 481, DateTimeKind.Utc).AddTicks(6784), null, "Administrator" });
+                values: new object[] { new Guid("8b77d3c0-2886-4296-8e22-402d3c5c8e93"), new DateTime(2024, 9, 13, 22, 17, 59, 507, DateTimeKind.Utc).AddTicks(2018), null, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedOnUtc", "DeletedOnUtc", "Email", "EmailConfirmed", "FirstName", "LastName", "ModifiedOnUtc", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed" },
-                values: new object[] { new Guid("9e935ced-b2c7-4f71-8e44-393e5736f9f0"), new DateTime(2024, 9, 11, 22, 6, 29, 485, DateTimeKind.Utc).AddTicks(3670), null, "eneskrdnz28@gmail.com", true, "Enes", "Karadeniz", null, "E53C20DA2C98C2F99EEDF39B2EBBDF34A8A915C612E5933276FB581809D6CF53-863C433952E958EDB9CA67DD8504CD70", null, false });
+                values: new object[] { new Guid("87c9272e-2046-470d-9ce5-9d32fd9fcc06"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8708), null, "eneskrdnz28@gmail.com", true, "Enes", "Karadeniz", null, "9A5466A4F194CD39813C886BFB59F6AF35FCB22AD76B12A1572C2C02D989B8EB-582BB6949CA31B538FAC47ABE7B804FB", null, false });
 
             migrationBuilder.InsertData(
                 table: "ProductMenuCategories",
                 columns: new[] { "MenuCategoryId", "ProductId" },
                 values: new object[,]
                 {
-                    { new Guid("7e96c6ac-2c98-4a46-a2d8-707f42771fb2"), new Guid("173b8030-db4d-44a2-bb80-629842a4d7a2") },
-                    { new Guid("22326620-890e-4528-b363-025eabc5779b"), new Guid("3e4fa8f5-6b33-4503-9034-73e565e04619") },
-                    { new Guid("39eeace4-99f7-494f-88d3-c6c84f2e50b7"), new Guid("3e4fa8f5-6b33-4503-9034-73e565e04619") },
-                    { new Guid("7e96c6ac-2c98-4a46-a2d8-707f42771fb2"), new Guid("8357b246-fc5d-4092-882e-9564fad8c46d") },
-                    { new Guid("22326620-890e-4528-b363-025eabc5779b"), new Guid("f395abdb-b9d9-4fae-a691-e083809a6172") },
-                    { new Guid("39eeace4-99f7-494f-88d3-c6c84f2e50b7"), new Guid("f395abdb-b9d9-4fae-a691-e083809a6172") }
+                    { new Guid("bee109d8-b4eb-446f-855b-ea45d2ff279b"), new Guid("39c73dda-4b0a-4bae-b801-2cc36a980a54") },
+                    { new Guid("3ced96f4-16b6-42fe-9834-c43c4a9a45f3"), new Guid("89460128-431a-402a-af93-a99bda22a2b5") },
+                    { new Guid("a6270d62-e249-4950-9149-73a23c6a0794"), new Guid("89460128-431a-402a-af93-a99bda22a2b5") },
+                    { new Guid("bee109d8-b4eb-446f-855b-ea45d2ff279b"), new Guid("acb90efa-e40a-4be1-9fac-4f3e597d260f") },
+                    { new Guid("3ced96f4-16b6-42fe-9834-c43c4a9a45f3"), new Guid("ce91c203-e70f-48ad-a42d-44451bc3b1bb") },
+                    { new Guid("a6270d62-e249-4950-9149-73a23c6a0794"), new Guid("ce91c203-e70f-48ad-a42d-44451bc3b1bb") }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductOptionGroups",
+                columns: new[] { "Id", "CreatedOnUtc", "IsRequired", "ModifiedOnUtc", "Name", "ProductId" },
+                values: new object[,]
+                {
+                    { new Guid("59f87686-122e-4095-a58a-26caea726ee1"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8953), true, null, "Boy Seçimi", new Guid("89460128-431a-402a-af93-a99bda22a2b5") },
+                    { new Guid("6e0b55db-2b02-4500-8ef6-fa6d294e8821"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8952), true, null, "Boy Seçimi", new Guid("ce91c203-e70f-48ad-a42d-44451bc3b1bb") },
+                    { new Guid("a811c569-e7a9-43ad-8624-50e8e2b3b4b1"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8958), true, null, "Boy Seçimi", new Guid("acb90efa-e40a-4be1-9fac-4f3e597d260f") },
+                    { new Guid("f39d399e-7233-445f-bd87-328acb055387"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8956), true, null, "Boy Seçimi", new Guid("39c73dda-4b0a-4bae-b801-2cc36a980a54") }
                 });
 
             migrationBuilder.InsertData(
                 table: "RolePermission",
                 columns: new[] { "PermissionId", "RoleId" },
-                values: new object[] { 1, new Guid("6dd96f70-f6de-4434-97f2-cf611d3cb8a0") });
+                values: new object[] { 1, new Guid("8b77d3c0-2886-4296-8e22-402d3c5c8e93") });
 
             migrationBuilder.InsertData(
                 table: "UserRole",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { new Guid("6dd96f70-f6de-4434-97f2-cf611d3cb8a0"), new Guid("9e935ced-b2c7-4f71-8e44-393e5736f9f0") });
+                values: new object[] { new Guid("8b77d3c0-2886-4296-8e22-402d3c5c8e93"), new Guid("87c9272e-2046-470d-9ce5-9d32fd9fcc06") });
+
+            migrationBuilder.InsertData(
+                table: "ProductOptions",
+                columns: new[] { "Id", "CreatedOnUtc", "ModifiedOnUtc", "Name", "Price", "ProductOptionGroupId" },
+                values: new object[,]
+                {
+                    { new Guid("15557090-2056-42a1-b02d-0c88dec78ac0"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8990), null, "Orta", 2m, new Guid("6e0b55db-2b02-4500-8ef6-fa6d294e8821") },
+                    { new Guid("16c12caa-d4b6-438d-ba31-3bd76780a008"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(9001), null, "Standart", 0m, new Guid("a811c569-e7a9-43ad-8624-50e8e2b3b4b1") },
+                    { new Guid("22bbeb5b-da8f-4558-9ccb-4ea98ae949d0"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8999), null, "Orta", 2m, new Guid("f39d399e-7233-445f-bd87-328acb055387") },
+                    { new Guid("255f050f-b503-44e0-8cd8-6975ff1572f9"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8998), null, "Standart", 0m, new Guid("f39d399e-7233-445f-bd87-328acb055387") },
+                    { new Guid("2b1cb234-0c24-4226-af7f-4395ac387775"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8994), null, "Orta", 2m, new Guid("59f87686-122e-4095-a58a-26caea726ee1") },
+                    { new Guid("5b89316a-4df4-48c1-8745-a9427ca9af86"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8995), null, "Büyük", 4m, new Guid("59f87686-122e-4095-a58a-26caea726ee1") },
+                    { new Guid("61de6614-ba08-466f-9bfe-02f04c94fcf1"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8993), null, "Standart", 0m, new Guid("59f87686-122e-4095-a58a-26caea726ee1") },
+                    { new Guid("840709df-e884-4cd6-979e-fff71a8e7180"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8987), null, "Standart", 0m, new Guid("6e0b55db-2b02-4500-8ef6-fa6d294e8821") },
+                    { new Guid("933f3898-9b65-43e3-9384-a7ab4218d370"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(9003), null, "Büyük", 4m, new Guid("a811c569-e7a9-43ad-8624-50e8e2b3b4b1") },
+                    { new Guid("9512b611-fad8-43d1-80b5-12568ed4fe20"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(9002), null, "Orta", 2m, new Guid("a811c569-e7a9-43ad-8624-50e8e2b3b4b1") },
+                    { new Guid("d0459463-dd7f-4816-8327-c47a08eaf6a7"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(9000), null, "Büyük", 4m, new Guid("f39d399e-7233-445f-bd87-328acb055387") },
+                    { new Guid("d2fca26d-e4cf-415c-a157-97d2824681b3"), new DateTime(2024, 9, 13, 22, 17, 59, 510, DateTimeKind.Utc).AddTicks(8991), null, "Büyük", 4m, new Guid("6e0b55db-2b02-4500-8ef6-fa6d294e8821") }
+                });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BasketItemOptions_BasketItemId",
-                table: "BasketItemOptions",
+                name: "IX_BasketItemOptionGroups_BasketItemId",
+                table: "BasketItemOptionGroups",
                 column: "BasketItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BasketItemOptionGroups_ProductOptionGroupId",
+                table: "BasketItemOptionGroups",
+                column: "ProductOptionGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BasketItemOptions_BasketItemOptionGroupId",
+                table: "BasketItemOptions",
+                column: "BasketItemOptionGroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BasketItemOptions_ProductOptionId",
@@ -610,7 +685,7 @@ namespace CofiApp.Persistence.Migrations
                 name: "UserVerificationTokens");
 
             migrationBuilder.DropTable(
-                name: "BasketItems");
+                name: "BasketItemOptionGroups");
 
             migrationBuilder.DropTable(
                 name: "ProductOptions");
@@ -626,6 +701,9 @@ namespace CofiApp.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "BasketItems");
 
             migrationBuilder.DropTable(
                 name: "ProductOptionGroups");

@@ -17,7 +17,7 @@ namespace CofiApp.Domain.Baskets
         public DateTime CreatedOnUtc { get; set; }
         public DateTime? ModifiedOnUtc { get; set; }
 
-        public ICollection<BasketItem> BasketItems { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<BasketItem> BasketItems { get; set; } = [];
+        public ICollection<Order> Orders { get; set; } = [];
     }
 }

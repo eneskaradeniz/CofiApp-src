@@ -19,7 +19,7 @@ namespace CofiApp.Application.MenuCategories.Commands.CreateMenuCategory
 
         public async Task<Result> Handle(CreateMenuCategoryCommand request, CancellationToken cancellationToken)
         {
-            if (!await _menuCategoryRepository.IsNameUniqueAsync(request.Name))
+            if (!await _menuCategoryRepository.IsNameUniqueAsync(request.Name, cancellationToken))
             {
                 return Result.Failure(DomainErrors.MenuCategory.DuplicateName);
             }

@@ -23,13 +23,13 @@ namespace CofiApp.Application.Products.Commands.UpdateProductMenuCategories
 
         public async Task<Result> Handle(UpdateProductMenuCategoriesCommand request, CancellationToken cancellationToken)
         {
-            if (!await _productRepository.AnyAsync(request.ProductId))
+            if (!await _productRepository.AnyAsync(request.ProductId, cancellationToken))
             {
                 return Result.Failure(DomainErrors.General.NotFound);
             }
 
             List<ProductMenuCategory> productMenuCategories = 
-                await _productMenuCategoryRepository.GetByProductIdAsync(request.ProductId);
+                await _productMenuCategoryRepository.GetByProductIdAsync(request.ProductId, cancellationToken);
 
             _productMenuCategoryRepository.RemoveRange(productMenuCategories);
 

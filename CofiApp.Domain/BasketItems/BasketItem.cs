@@ -1,4 +1,4 @@
-﻿using CofiApp.Domain.BasketItemOptions;
+﻿using CofiApp.Domain.BasketItemOptionGroups;
 using CofiApp.Domain.Baskets;
 using CofiApp.Domain.Core.Abstractions;
 using CofiApp.Domain.Core.Primitives;
@@ -19,6 +19,6 @@ namespace CofiApp.Domain.BasketItems
         public DateTime CreatedOnUtc { get; set; }
         public DateTime? ModifiedOnUtc { get; set; }
 
-        public ICollection<BasketItemOption> BasketItemOptions { get; set; }
+        public ICollection<BasketItemOptionGroup> BasketItemOptionGroups { get; set; } = [];
     }
 }

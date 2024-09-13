@@ -11,15 +11,15 @@ namespace CofiApp.Persistence.Repositories
         {
         }
 
-        public async Task<Maybe<MenuCategory>> GetByNameAsync(string name) =>
+        public async Task<Maybe<MenuCategory>> GetByNameAsync(string name, CancellationToken cancellationToken = default) =>
             await DbContext.Set<MenuCategory>()
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Name == name);
+                .FirstOrDefaultAsync(x => x.Name == name, cancellationToken);
 
-        public async Task<bool> IsNameUniqueAsync(string name) =>
+        public async Task<bool> IsNameUniqueAsync(string name, CancellationToken cancellationToken = default) =>
             !await DbContext.Set<MenuCategory>()
                 .AsNoTracking()
                 .AsQueryable()
-                .AnyAsync(x => x.Name == name);
+                .AnyAsync(x => x.Name == name, cancellationToken);
     }
 }

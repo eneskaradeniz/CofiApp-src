@@ -11,15 +11,15 @@ namespace CofiApp.Persistence.Repositories
         {
         }
 
-        public async Task<Maybe<User>> GetByEmailAsync(string email) =>
+        public async Task<Maybe<User>> GetByEmailAsync(string email, CancellationToken cancellationToken = default) =>
             await DbContext.Set<User>()
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Email == email);
+                .FirstOrDefaultAsync(x => x.Email == email, cancellationToken);
 
-        public async Task<bool> IsEmailUniqueAsync(string email) =>
+        public async Task<bool> IsEmailUniqueAsync(string email, CancellationToken cancellationToken = default) =>
              !await DbContext.Set<User>()
                 .AsNoTracking()
                 .AsQueryable()
-                .AnyAsync(x => x.Email == email);
+                .AnyAsync(x => x.Email == email, cancellationToken);
     }
 }

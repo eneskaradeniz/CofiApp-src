@@ -90,7 +90,15 @@ namespace CofiApp.Application.Core.Errors
             internal static Error IdIsRequired = new("ProductOptions.IdIsRequired", "The id is required.");
             internal static Error NameIsRequired = new("ProductOptions.NameIsRequired", "The name is required.");
             internal static Error NameIsTooLong = new("ProductOptions.NameIsTooLong", "The name is too long.");
-            internal static Error PriceIsRequired = new("ProductOptions.PriceIsRequired", "The price is required.");           
+            internal static Error PriceIsRequired = new("ProductOptions.PriceIsRequired", "The price is required.");
+        }
+
+        internal static class Baskets
+        {
+            internal static Error ProductIdIsRequired = new("Baskets.ProductIdIsRequired", "The product id is required.");
+            internal static Error QuantityMustBeGreaterThanZero = new("Baskets.QuantityMustBeGreaterThanZero", "The quantity must be greater than zero.");
+            internal static Error BasketItemIdIsRequired = new("Baskets.BasketItemIdIsRequired", "The basket item id is required.");
+            internal static Error IsIncreaseIsRequired = new("Baskets.IsIncreaseIsRequired", "The is increase is required.");
         }
     }
 }

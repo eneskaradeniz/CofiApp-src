@@ -11,10 +11,10 @@ namespace CofiApp.Persistence.Repositories
         {
         }
 
-        public async Task<List<ProductMenuCategory>> GetByProductIdAsync(Guid productId) =>
+        public async Task<List<ProductMenuCategory>> GetByProductIdAsync(Guid productId, CancellationToken cancellationToken = default) =>
             await DbContext.Set<ProductMenuCategory>()
                 .AsNoTracking()
                 .Where(x => x.ProductId == productId)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
     }
 }

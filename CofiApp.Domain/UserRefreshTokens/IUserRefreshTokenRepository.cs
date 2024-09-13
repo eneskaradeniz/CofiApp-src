@@ -7,7 +7,7 @@ namespace CofiApp.Domain.UserRefreshTokens
         void Insert(UserRefreshToken userRefreshToken);
         void Update(UserRefreshToken userRefreshToken);
 
-        Task<Maybe<UserRefreshToken>> GetByUserIdAsync(Guid userId);
-        Task<Maybe<UserRefreshToken>> GetByTokenAsync(string token);
+        Task<Maybe<UserRefreshToken>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default);
+        Task<Maybe<UserRefreshToken>> GetByTokenAsync(string token, CancellationToken cancellationToken = default);
     }
 }

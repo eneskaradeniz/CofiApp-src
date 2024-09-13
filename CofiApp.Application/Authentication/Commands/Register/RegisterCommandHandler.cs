@@ -34,7 +34,7 @@ namespace CofiApp.Application.Authentication.Commands.Register
 
         public async Task<Result> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
-            if (!await _userRepository.IsEmailUniqueAsync(request.Email))
+            if (!await _userRepository.IsEmailUniqueAsync(request.Email, cancellationToken))
             {
                 return Result.Failure<TokenResponse>(DomainErrors.User.DuplicateEmail);
             }

@@ -32,7 +32,7 @@ namespace CofiApp.Application.Authentication.Commands.Login
 
         public async Task<Result<TokenResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var maybeUser = await _userRepository.GetByEmailAsync(request.Email);
+            var maybeUser = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
 
             if (maybeUser.HasNoValue)
             {
@@ -57,7 +57,7 @@ namespace CofiApp.Application.Authentication.Commands.Login
             var refreshToken = _tokenProvider.CreateBase64Token();
             TokenResponse tokenResponse = new(accessToken, refreshToken);
 
-            var maybeUserRefreshToken = await _userRefreshTokensRepository.GetByUserIdAsync(user.Id);
+            var maybeUserRefreshToken = await _userRefreshTokensRepository.GetByUserIdAsync(user.Id, cancellationToken);
 
             if (maybeUserRefreshToken.HasNoValue)
             {

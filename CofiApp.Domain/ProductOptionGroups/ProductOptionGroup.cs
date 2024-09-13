@@ -1,4 +1,5 @@
-﻿using CofiApp.Domain.Core.Abstractions;
+﻿using CofiApp.Domain.BasketItemOptionGroups;
+using CofiApp.Domain.Core.Abstractions;
 using CofiApp.Domain.Core.Primitives;
 using CofiApp.Domain.ProductOptions;
 using CofiApp.Domain.Products;
@@ -17,7 +18,9 @@ namespace CofiApp.Domain.ProductOptionGroups
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
 
-        public ICollection<ProductOption> ProductOptions { get; set; }
+        public ICollection<ProductOption> ProductOptions { get; set; } = [];
+
+        public ICollection<BasketItemOptionGroup> BasketItemOptionGroups { get; set; } = [];
 
         public void Update(string name, bool isRequired, bool allowMultiple)
         {

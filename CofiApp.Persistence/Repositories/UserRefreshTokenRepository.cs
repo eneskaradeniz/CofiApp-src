@@ -11,12 +11,12 @@ namespace CofiApp.Persistence.Repositories
         {
         }
 
-        public async Task<Maybe<UserRefreshToken>> GetByTokenAsync(string token) =>
+        public async Task<Maybe<UserRefreshToken>> GetByTokenAsync(string token, CancellationToken cancellationToken = default) =>
             await DbContext.Set<UserRefreshToken>()
-                .FirstOrDefaultAsync(x => x.Token == token);
+                .FirstOrDefaultAsync(x => x.Token == token, cancellationToken);
 
-        public async Task<Maybe<UserRefreshToken>> GetByUserIdAsync(Guid userId) =>
+        public async Task<Maybe<UserRefreshToken>> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default) =>
             await DbContext.Set<UserRefreshToken>()
-                .FirstOrDefaultAsync(x => x.UserId == userId);
+                .FirstOrDefaultAsync(x => x.UserId == userId, cancellationToken);
     }
 }

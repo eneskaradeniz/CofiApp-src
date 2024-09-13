@@ -10,10 +10,10 @@ namespace CofiApp.Persistence.Repositories
         {
         }
         
-        public async Task<bool> IsNameUniqueAsync(string name) =>
+        public async Task<bool> IsNameUniqueAsync(string name, CancellationToken cancellationToken = default) =>
              !await DbContext.Set<Role>()
                 .AsNoTracking()
                 .AsQueryable()
-                .AnyAsync(x => x.Name == name);
+                .AnyAsync(x => x.Name == name, cancellationToken);
     }
 }

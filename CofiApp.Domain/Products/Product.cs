@@ -1,4 +1,5 @@
-﻿using CofiApp.Domain.Core.Abstractions;
+﻿using CofiApp.Domain.BasketItems;
+using CofiApp.Domain.Core.Abstractions;
 using CofiApp.Domain.Core.Primitives;
 using CofiApp.Domain.MenuCategories;
 using CofiApp.Domain.ProductMenuCategories;
@@ -22,6 +23,8 @@ namespace CofiApp.Domain.Products
 
         public ICollection<MenuCategory> MenuCategories { get; set; } = [];
         public ICollection<ProductMenuCategory> ProductMenuCategories { get; set; } = [];
+
+        public ICollection<BasketItem> BasketItems { get; set; } = [];
 
         public void Update(string name, string? description, decimal price)
         {

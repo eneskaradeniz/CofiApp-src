@@ -13,13 +13,13 @@ namespace CofiApp.Persistence.Configurations
 
             builder.HasKey(bio => bio.Id);
 
-            builder.HasOne(bio => bio.BasketItem)
+            builder.HasOne(bio => bio.BasketItemOptionGroup)
                 .WithMany(bi => bi.BasketItemOptions)
-                .HasForeignKey(bio => bio.BasketItemId)
+                .HasForeignKey(bio => bio.BasketItemOptionGroupId)
                 .IsRequired();
 
             builder.HasOne(bio => bio.ProductOption)
-                .WithMany()
+                .WithMany(po => po.BasketItemOptions)
                 .HasForeignKey(bio => bio.ProductOptionId)
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
@@ -30,7 +30,7 @@ namespace CofiApp.Persistence.Configurations
             builder.Property(po => po.ModifiedOnUtc)
                 .IsRequired(false);
 
-            builder.HasQueryFilter(po => !po.BasketItem.Basket.User.Deleted);
+            builder.HasQueryFilter(po => !po.BasketItemOptionGroup.BasketItem.Basket.User.Deleted);
         }
     }
 }

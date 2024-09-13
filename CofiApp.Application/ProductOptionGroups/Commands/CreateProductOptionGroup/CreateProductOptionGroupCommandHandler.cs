@@ -23,7 +23,7 @@ namespace CofiApp.Application.ProductOptionGroups.Commands.CreateProductOptionGr
 
         public async Task<Result> Handle(CreateProductOptionGroupCommand request, CancellationToken cancellationToken)
         {
-            if (!await _productRepository.AnyAsync(request.ProductId))
+            if (!await _productRepository.AnyAsync(request.ProductId, cancellationToken))
             {
                 return Result.Failure(DomainErrors.General.NotFound);
             }

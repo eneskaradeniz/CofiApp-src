@@ -125,11 +125,13 @@
         {
             // Customer
 
-            public const string Get = "baskets"; // sepetteki ürünleri getir
+            public const string GetActiveBasket = "baskets"; // sepetteki ürünleri getir
 
-            public const string AddProduct = "baskets/products"; // sepete ürün ekle
+            public const string CreateBasketItem = "baskets"; // sepete ürün ekle
 
-            public const string UpdateProduct = "baskets/products/{productId:guid}"; // sepetteki ürünü güncelle/sil
+            public const string UpdateBasketItem = "baskets/{basketItemId:guid}"; // sepetteki ürünü güncelle
+         
+            public const string UpdateBasketItemQuantity = "baskets/{basketItemId:guid}/quantity"; // sepetteki ürünün miktarını arttır azalt
 
             public const string Clear = "baskets/clear"; // sepeti temizle
         }

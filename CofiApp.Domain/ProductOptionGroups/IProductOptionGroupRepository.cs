@@ -4,7 +4,7 @@ namespace CofiApp.Domain.ProductOptionGroups
 {
     public interface IProductOptionGroupRepository
     {
-        Task<bool> AnyAsync(Guid productOptionGroupId);
+        Task<bool> AnyAsync(Guid productOptionGroupId, CancellationToken cancellationToken = default);
         Task<Maybe<ProductOptionGroup>> GetByIdAsync(Guid id);
         void Insert(ProductOptionGroup productOptionGroup);
         void Update(ProductOptionGroup productOptionGroup);

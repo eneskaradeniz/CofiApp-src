@@ -33,7 +33,7 @@ namespace CofiApp.Application.Authentication.Commands.ForgotPassword
 
         public async Task<Result> Handle(ForgotPasswordCommand request, CancellationToken cancellationToken)
         {
-            var maybeUser = await _userRepository.GetByEmailAsync(request.Email);
+            var maybeUser = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
 
             if (maybeUser.HasNoValue)
             {
@@ -47,7 +47,7 @@ namespace CofiApp.Application.Authentication.Commands.ForgotPassword
                 return Result.Failure(DomainErrors.Authentication.EmailNotConfirmed);
             }
 
-            var maybeUserVerificationToken = await _userVerificationTokenRepository.GetByUserIdAsync(user.Id);
+            var maybeUserVerificationToken = await _userVerificationTokenRepository.GetByUserIdAsync(user.Id, cancellationToken);
 
             if (maybeUserVerificationToken.HasNoValue)
             {

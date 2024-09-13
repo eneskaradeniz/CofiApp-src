@@ -26,7 +26,7 @@ namespace CofiApp.Application.Authentication.Commands.RefreshToken
 
         public async Task<Result<TokenResponse>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            var maybeUserRefreshToken = await _userRefreshTokenRepository.GetByTokenAsync(request.RefreshToken);
+            var maybeUserRefreshToken = await _userRefreshTokenRepository.GetByTokenAsync(request.RefreshToken, cancellationToken);
 
             if (maybeUserRefreshToken.HasNoValue)
             {

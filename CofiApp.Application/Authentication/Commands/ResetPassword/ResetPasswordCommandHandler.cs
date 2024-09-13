@@ -26,7 +26,7 @@ namespace CofiApp.Application.Authentication.Commands.ResetPassword
 
         public async Task<Result> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
-            var maybeUserVerificationToken = await _userVerificationTokenRepository.GetByTokenAsync(request.Token);
+            var maybeUserVerificationToken = await _userVerificationTokenRepository.GetByTokenAsync(request.Token, cancellationToken);
 
             if (maybeUserVerificationToken.HasNoValue)
             {

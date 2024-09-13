@@ -28,10 +28,10 @@ namespace CofiApp.Persistence.Configurations
                 .IsRequired();
 
             builder.HasOne(bi => bi.Product)
-                .WithMany()
+                .WithMany(p => p.BasketItems)
                 .HasForeignKey(bi => bi.ProductId)
-                .IsRequired();       
-            
+                .IsRequired();
+
             builder.HasQueryFilter(bi => !bi.Basket.User.Deleted);
         }
     }

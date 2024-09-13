@@ -6,9 +6,9 @@ namespace CofiApp.Domain.Users
     {
         Task<Maybe<User>> GetByIdAsync(Guid userId);
 
-        Task<Maybe<User>> GetByEmailAsync(string email);
+        Task<Maybe<User>> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
 
-        Task<bool> IsEmailUniqueAsync(string email);
+        Task<bool> IsEmailUniqueAsync(string email, CancellationToken cancellationToken = default);
 
         void Insert(User user);
 
