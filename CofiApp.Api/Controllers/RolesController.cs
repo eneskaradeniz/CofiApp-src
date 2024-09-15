@@ -25,7 +25,7 @@ namespace CofiApp.Api.Controllers
         }
 
         [HasPermission(Permission.GetRoles)]
-        [HttpGet(ApiRoutes.Roles.Get)]
+        [HttpGet(ApiRoutes.Admin.Roles.Get)]
         [ProducesResponseType(typeof(List<RoleResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get() =>
@@ -35,7 +35,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, NotFound);
 
         [HasPermission(Permission.CreateRole)]
-        [HttpPost(ApiRoutes.Roles.Create)]
+        [HttpPost(ApiRoutes.Admin.Roles.Create)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create([FromBody] CreateRoleRequest createRoleRequest) =>
@@ -45,7 +45,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, BadRequest);
 
         [HasPermission(Permission.UpdateRole)]
-        [HttpPut(ApiRoutes.Roles.Update)]
+        [HttpPut(ApiRoutes.Admin.Roles.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(Guid roleId, [FromBody] UpdateRoleRequest updateRoleRequest) =>
@@ -55,7 +55,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, BadRequest);
 
         [HasPermission(Permission.RemoveRole)]
-        [HttpDelete(ApiRoutes.Roles.Remove)]
+        [HttpDelete(ApiRoutes.Admin.Roles.Remove)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Remove(Guid roleId) =>
@@ -64,7 +64,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, BadRequest);
 
         [HasPermission(Permission.GetRolesPermissions)]
-        [HttpGet(ApiRoutes.Roles.GetPermissions)]
+        [HttpGet(ApiRoutes.Admin.Roles.GetPermissions)]
         [ProducesResponseType(typeof(List<RoleResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetPermissions() =>
@@ -74,7 +74,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, NotFound);
 
         [HasPermission(Permission.AssignPermission)]
-        [HttpPut(ApiRoutes.Roles.AssignPermission)]
+        [HttpPut(ApiRoutes.Admin.Roles.AssignPermission)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AssignPermission(Guid roleId, int permissionId) =>
@@ -83,7 +83,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, BadRequest);
 
         [HasPermission(Permission.AssignUser)]
-        [HttpPut(ApiRoutes.Roles.AssignUser)]
+        [HttpPut(ApiRoutes.Admin.Roles.AssignUser)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AssignUser(Guid roleId, Guid userId) =>

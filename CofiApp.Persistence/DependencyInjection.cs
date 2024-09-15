@@ -5,6 +5,10 @@ using CofiApp.Domain.BasketItemOptions;
 using CofiApp.Domain.BasketItems;
 using CofiApp.Domain.Baskets;
 using CofiApp.Domain.MenuCategories;
+using CofiApp.Domain.OrderItemOptionGroups;
+using CofiApp.Domain.OrderItemOptions;
+using CofiApp.Domain.OrderItems;
+using CofiApp.Domain.Orders;
 using CofiApp.Domain.ProductMenuCategories;
 using CofiApp.Domain.ProductOptionGroups;
 using CofiApp.Domain.ProductOptions;
@@ -65,6 +69,14 @@ namespace CofiApp.Persistence
             services.AddScoped<IBasketItemOptionGroupRepository, BasketItemOptionGroupRepository>();
 
             services.AddScoped<IBasketItemOptionRepository, BasketItemOptionRepository>();
+
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
+            services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+
+            services.AddScoped<IOrderItemOptionGroupRepository, OrderItemOptionGroupRepository>();
+
+            services.AddScoped<IOrderItemOptionRepository, OrderItemOptionRepository>();
 
             return services;
         }

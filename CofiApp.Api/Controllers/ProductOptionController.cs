@@ -1,8 +1,8 @@
 ﻿using CofiApp.Api.Contracts;
 using CofiApp.Api.Infrastructure;
 using CofiApp.Application.ProductOptions.Commands.CreateProductOption;
+using CofiApp.Application.ProductOptions.Commands.RemoveProductOption;
 using CofiApp.Application.ProductOptions.Commands.UpdateProductOption;
-using CofiApp.Application.Products.Commands.RemoveProduct;
 using CofiApp.Contracts.ProductOptions;
 using CofiApp.Domain.Core.Errors;
 using CofiApp.Domain.Core.Primitives.Result;
@@ -20,7 +20,7 @@ namespace CofiApp.Api.Controllers
         }
 
         [HasPermission(Permission.CreateProductOption)]
-        [HttpPost(ApiRoutes.ProductOptions.Create)]
+        [HttpPost(ApiRoutes.Shop.ProductOptions.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(Guid productOptionGroupId, [FromBody] CreateProductOptionRequest createProductOptionRequest) =>
@@ -30,7 +30,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Created, BadRequest);
 
         [HasPermission(Permission.UpdateProductOption)]
-        [HttpPut(ApiRoutes.ProductOptions.Update)]
+        [HttpPut(ApiRoutes.Shop.ProductOptions.Update)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(Guid productOptionId, [FromBody] UpdateProductOptionRequest updateProductOptionRequest) =>
@@ -40,11 +40,11 @@ namespace CofiApp.Api.Controllers
                 .Match(NoContent, BadRequest);
 
         [HasPermission(Permission.RemoveProductOption)]
-        [HttpDelete(ApiRoutes.ProductOptions.Remove)]
+        [HttpDelete(ApiRoutes.Shop.ProductOptions.Remove)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Remove(Guid productOptionId) =>
-            await Result.Success(new RemoveProductCommand(productOptionId))
+            await Result.Success(new RemoveProductOptionCommand(productOptionId))
                 .Bind(command => Mediator.Send(command))
                 .Match(Ok, BadRequest);
     }

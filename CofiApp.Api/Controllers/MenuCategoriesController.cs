@@ -27,7 +27,7 @@ namespace CofiApp.Api.Controllers
         }
 
         [HasPermission(Permission.GetMenuCategories)]
-        [HttpGet(ApiRoutes.MenuCategories.Get)]
+        [HttpGet(ApiRoutes.Shop.MenuCategories.Get)]
         [ProducesResponseType(typeof(PagedList<MenuCategoryResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int page, int pageSize) =>
@@ -37,7 +37,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, NotFound);
 
         [HasPermission(Permission.GetMenuCategoryById)]
-        [HttpGet(ApiRoutes.MenuCategories.GetById)]
+        [HttpGet(ApiRoutes.Shop.MenuCategories.GetById)]
         [ProducesResponseType(typeof(MenuCategoryResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(Guid menuCategoryId) =>
@@ -47,7 +47,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, NotFound);
 
         [HasPermission(Permission.CreateMenuCategory)]
-        [HttpPost(ApiRoutes.MenuCategories.Create)]
+        [HttpPost(ApiRoutes.Shop.MenuCategories.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create([FromBody] CreateMenuCategoryRequest createMenuCategoryRequest) =>
@@ -57,7 +57,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Created, BadRequest);
 
         [HasPermission(Permission.UpdateMenuCategory)]
-        [HttpPut(ApiRoutes.MenuCategories.Update)]
+        [HttpPut(ApiRoutes.Shop.MenuCategories.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(Guid menuCategoryId, [FromBody] UpdateMenuCategoryRequest updateMenuCategoryRequest) =>
@@ -67,7 +67,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, BadRequest);
 
         [HasPermission(Permission.RemoveMenuCategory)]
-        [HttpDelete(ApiRoutes.MenuCategories.Remove)]
+        [HttpDelete(ApiRoutes.Shop.MenuCategories.Remove)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Remove(Guid menuCategoryId) =>
@@ -76,7 +76,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, BadRequest);
 
         [AllowAnonymous]
-        [HttpGet(ApiRoutes.MenuCategories.PublicGet)]
+        [HttpGet(ApiRoutes.Public.MenuCategories.Get)]
         [ProducesResponseType(typeof(PagedList<PublicMenuCategoryResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PublicGet() =>
@@ -84,14 +84,14 @@ namespace CofiApp.Api.Controllers
                 .From(new PublicGetMenuCategoriesQuery())
                 .Bind(query => Mediator.Send(query))
                 .Match(Ok, NotFound);
-
+        
         [AllowAnonymous]
-        [HttpGet(ApiRoutes.MenuCategories.PublicGetWithProducts)]
-        [ProducesResponseType(typeof(PagedList<PublicMenuCategoryWithProductsResponse>), StatusCodes.Status200OK)]
+        [HttpGet(ApiRoutes.Public.MenuCategories.GetByIdWithProducts)]
+        [ProducesResponseType(typeof(PagedList<MenuCategoryWithProductsResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PublicGetWithProducts(Guid menuCategoryId, int page, int pageSize) =>
-            await Maybe<PublicGetMenuCategoryByIdWithProductsQuery>
-                .From(new PublicGetMenuCategoryByIdWithProductsQuery(menuCategoryId, page, pageSize))
+        public async Task<IActionResult> GetMenuCategoryByIdWithProducts(Guid menuCategoryId, int page, int pageSize) =>
+            await Maybe<GetMenuCategoryByIdWithProductsQuery>
+                .From(new GetMenuCategoryByIdWithProductsQuery(menuCategoryId, page, pageSize))
                 .Bind(query => Mediator.Send(query))
                 .Match(Ok, NotFound);
     }

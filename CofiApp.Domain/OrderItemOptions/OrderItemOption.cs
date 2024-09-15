@@ -1,14 +1,15 @@
 ﻿using CofiApp.Domain.Core.Abstractions;
 using CofiApp.Domain.Core.Primitives;
-using CofiApp.Domain.OrderItems;
+using CofiApp.Domain.OrderItemOptionGroups;
 
 namespace CofiApp.Domain.OrderItemOptions
 {
     public class OrderItemOption : Entity, IAuditableEntity
     {
-        public Guid OrderItemId { get; set; }
-        public OrderItem OrderItem { get; set; }
-        
+        public Guid OrderItemOptionGroupId { get; set; }
+        public OrderItemOptionGroup OrderItemOptionGroup { get; set; }
+
+        public Guid ProductOptionId { get; set; }
         public string ProductOptionName { get; set; }
         public decimal ProductOptionPrice { get; set; }
 

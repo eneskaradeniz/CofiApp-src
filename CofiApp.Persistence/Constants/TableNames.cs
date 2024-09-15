@@ -15,6 +15,7 @@
         public const string BasketItemOptions = "BasketItemOptions";
         public const string Orders = "Orders";
         public const string OrderItems = "OrderItems";
+        public const string OrderItemOptionGroups = "OrderItemOptionGroups";
         public const string OrderItemOptions = "OrderItemOptions";
         public const string Permissions = "Permissions";
         public const string Roles = "Roles";

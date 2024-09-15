@@ -13,9 +13,12 @@ namespace CofiApp.Persistence.Configurations
 
             builder.HasKey(oio => oio.Id);
 
-            builder.HasOne(oio => oio.OrderItem)
+            builder.Property(oio => oio.ProductOptionId)
+                .IsRequired();
+
+            builder.HasOne(oio => oio.OrderItemOptionGroup)
                 .WithMany(oi => oi.OrderItemOptions)
-                .HasForeignKey(oio => oio.OrderItemId)
+                .HasForeignKey(oio => oio.OrderItemOptionGroupId)
                 .IsRequired();
 
             builder.Property(oio => oio.ProductOptionName)
@@ -32,7 +35,7 @@ namespace CofiApp.Persistence.Configurations
             builder.Property(oio => oio.ModifiedOnUtc)
                 .IsRequired(false);
 
-            builder.HasQueryFilter(oio => !oio.OrderItem.Order.User.Deleted);
+            builder.HasQueryFilter(oio => !oio.OrderItemOptionGroup.OrderItem.Order.User.Deleted);
         }
     }
 }

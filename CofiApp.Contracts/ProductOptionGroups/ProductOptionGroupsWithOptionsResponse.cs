@@ -1,4 +1,6 @@
-﻿namespace CofiApp.Contracts.ProductOptionGroups
+﻿using CofiApp.Contracts.ProductOptions;
+
+namespace CofiApp.Contracts.ProductOptionGroups
 {
     public class ProductOptionGroupsWithOptionsResponse
     {

@@ -22,7 +22,7 @@ namespace CofiApp.Api.Controllers
         }
 
         [HasPermission(Permission.GetProductOptionGroupsWithOptions)]
-        [HttpGet(ApiRoutes.ProductOptionGroups.GetWithOptions)]
+        [HttpGet(ApiRoutes.Shop.ProductOptionGroups.GetWithOptions)]
         [ProducesResponseType(typeof(List<ProductOptionGroupsWithOptionsResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetWithOptions(Guid productId) =>
@@ -32,7 +32,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, NotFound);
 
         [HasPermission(Permission.CreateProductOptionGroup)]
-        [HttpPost(ApiRoutes.ProductOptionGroups.Create)]
+        [HttpPost(ApiRoutes.Shop.ProductOptionGroups.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(Guid productId, [FromBody] CreateProductOptionGroupRequest createProductOptionGroupRequest) =>
@@ -42,7 +42,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Created, BadRequest);
 
         [HasPermission(Permission.UpdateProductOptionGroup)]
-        [HttpPut(ApiRoutes.ProductOptionGroups.Update)]
+        [HttpPut(ApiRoutes.Shop.ProductOptionGroups.Update)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(Guid productOptionGroupId, [FromBody] UpdateProductOptionGroupRequest updateProductOptionGroupRequest) =>
@@ -52,7 +52,7 @@ namespace CofiApp.Api.Controllers
                 .Match(NoContent, BadRequest);
 
         [HasPermission(Permission.RemoveProductOptionGroup)]
-        [HttpDelete(ApiRoutes.ProductOptionGroups.Remove)]
+        [HttpDelete(ApiRoutes.Shop.ProductOptionGroups.Remove)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Remove(Guid productOptionGroupId) =>

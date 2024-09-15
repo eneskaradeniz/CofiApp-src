@@ -100,5 +100,12 @@ namespace CofiApp.Application.Core.Errors
             internal static Error BasketItemIdIsRequired = new("Baskets.BasketItemIdIsRequired", "The basket item id is required.");
             internal static Error IsIncreaseIsRequired = new("Baskets.IsIncreaseIsRequired", "The is increase is required.");
         }
+
+        internal static class Orders
+        {
+            internal static Error OrderIdIsRequired = new("Orders.OrderIdIsRequired", "The order id is required.");
+            internal static Error OrderStatusIsRequired = new("Orders.OrderStatusIsRequired", "The order status is required.");
+            internal static Error OrderStatusIsInvalid = new("Orders.OrderStatusIsInvalid", "The order status is invalid.");
+        }
     }
 }

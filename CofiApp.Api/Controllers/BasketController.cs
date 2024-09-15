@@ -22,18 +22,18 @@ namespace CofiApp.Api.Controllers
         {
         }
 
-        [HasPermission(Permission.GetActiveBasketByUser)]
-        [HttpGet(ApiRoutes.Baskets.GetActiveBasket)]
+        [HasPermission(Permission.GetActiveBasket)]
+        [HttpGet(ApiRoutes.Customer.Baskets.GetActiveBasket)]
         [ProducesResponseType(typeof(BasketResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetActiveBasket() =>
-            await Maybe<GetActiveBasketByUserQuery>
-                .From(new GetActiveBasketByUserQuery())
+            await Maybe<GetActiveBasketQuery>
+                .From(new GetActiveBasketQuery())
                 .Bind(query => Mediator.Send(query))
                 .Match(Ok, NotFound);
 
         [HasPermission(Permission.CreateBasketItem)]
-        [HttpPost(ApiRoutes.Baskets.CreateBasketItem)]
+        [HttpPost(ApiRoutes.Customer.Baskets.CreateBasketItem)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateBasketItem([FromBody] CreateBasketItemRequest createBasketItemRequest) =>
@@ -43,7 +43,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Created, BadRequest);
 
         [HasPermission(Permission.UpdateBasketItem)]
-        [HttpPut(ApiRoutes.Baskets.UpdateBasketItem)]
+        [HttpPut(ApiRoutes.Customer.Baskets.UpdateBasketItem)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateBasketItem(Guid basketItemId, [FromBody] UpdateBasketItemRequest updateBasketItemRequest) => await Result.Create(updateBasketItemRequest, DomainErrors.General.UnProcessableRequest)
@@ -52,7 +52,7 @@ namespace CofiApp.Api.Controllers
                 .Match(NoContent, BadRequest);
 
         [HasPermission(Permission.UpdateBasketItemQuantity)]
-        [HttpPut(ApiRoutes.Baskets.UpdateBasketItemQuantity)]
+        [HttpPatch(ApiRoutes.Customer.Baskets.UpdateBasketItemQuantity)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateBasketItemQuantity(Guid basketItemId, [FromBody] UpdateBasketItemQuantityRequest updateBasketItemQuantityRequest) =>
@@ -62,7 +62,7 @@ namespace CofiApp.Api.Controllers
                 .Match(NoContent, BadRequest);
 
         [HasPermission(Permission.ClearBasket)]
-        [HttpDelete(ApiRoutes.Baskets.Clear)]
+        [HttpPost(ApiRoutes.Customer.Baskets.ClearBasket)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ClearBasket() =>

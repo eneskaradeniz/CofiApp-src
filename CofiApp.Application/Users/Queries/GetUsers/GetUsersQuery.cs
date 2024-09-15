@@ -12,7 +12,7 @@ namespace CofiApp.Application.Users.Queries.GetUsers
             Page = page;
             PageSize = pageSize;
         }
-        // TODO: Page and PageSize should be validated (min max vs.)
+        // TODO: Page and PageSize should be validated (min max vs.) AND default values should be set.
         public int Page { get; }
         public int PageSize { get; }
     }

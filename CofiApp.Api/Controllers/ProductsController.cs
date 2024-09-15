@@ -27,7 +27,7 @@ namespace CofiApp.Api.Controllers
         }
 
         [HasPermission(Permission.GetProducts)]
-        [HttpGet(ApiRoutes.Products.Get)]
+        [HttpGet(ApiRoutes.Shop.Products.Get)]
         [ProducesResponseType(typeof(PagedList<ProductResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int page, int pageSize) =>
@@ -37,7 +37,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, NotFound);
 
         [HasPermission(Permission.GetProductById)]
-        [HttpGet(ApiRoutes.Products.GetById)]
+        [HttpGet(ApiRoutes.Shop.Products.GetById)]
         [ProducesResponseType(typeof(ProductResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(Guid productId) =>
@@ -47,7 +47,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, NotFound);
 
         [HasPermission(Permission.CreateProduct)]
-        [HttpPost(ApiRoutes.Products.Create)]
+        [HttpPost(ApiRoutes.Shop.Products.Create)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create([FromBody] CreateProductRequest createProductRequest) =>
@@ -57,7 +57,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Created, BadRequest);
 
         [HasPermission(Permission.UpdateProduct)]
-        [HttpPut(ApiRoutes.Products.Update)]
+        [HttpPut(ApiRoutes.Shop.Products.Update)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(Guid productId, [FromBody] UpdateProductRequest updateProductRequest) =>
@@ -67,7 +67,7 @@ namespace CofiApp.Api.Controllers
                 .Match(NoContent, BadRequest);
 
         [HasPermission(Permission.RemoveProduct)]
-        [HttpDelete(ApiRoutes.Products.Remove)]
+        [HttpDelete(ApiRoutes.Shop.Products.Remove)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Remove(Guid productId) =>
@@ -76,7 +76,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, BadRequest);
 
         [HasPermission(Permission.UpdateProductMenuCategories)]
-        [HttpPut(ApiRoutes.Products.UpdateProductMenuCategories)]
+        [HttpPut(ApiRoutes.Shop.Products.UpdateProductMenuCategories)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateProductMenuCategories(Guid productId, [FromBody] UpdateProductMenuCategoriesRequest updateProductMenuCategoriesRequest) =>
@@ -84,14 +84,14 @@ namespace CofiApp.Api.Controllers
                 .Map(request => new UpdateProductMenuCategoriesCommand(productId, request.MenuCategoryIds))
                 .Bind(command => Mediator.Send(command))
                 .Match(NoContent, BadRequest);
-
+        
         [AllowAnonymous]
-        [HttpGet(ApiRoutes.Products.PublicGetById)]
-        [ProducesResponseType(typeof(PublicProductWithOptionsResponse), StatusCodes.Status200OK)]
+        [HttpGet(ApiRoutes.Public.Products.GetByIdWithDetails)]
+        [ProducesResponseType(typeof(ProductWithDetailsResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PublicGetById(Guid productId) =>
-            await Maybe<PublicGetProductByIdQuery>
-                .From(new PublicGetProductByIdQuery(productId))
+        public async Task<IActionResult> GetByIdWithDetails(Guid productId) =>
+            await Maybe<GetByIdWithDetailsQuery>
+                .From(new GetByIdWithDetailsQuery(productId))
                 .Bind(query => Mediator.Send(query))
                 .Match(Ok, NotFound);
     }

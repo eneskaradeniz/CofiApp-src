@@ -39,11 +39,20 @@
         CreateProductOption = 29,
         UpdateProductOption = 30,
         RemoveProductOption = 31,
-
-        GetActiveBasketByUser = 32,
+        
+        GetActiveBasket = 32,
         CreateBasketItem = 33,
         UpdateBasketItem = 34,
         UpdateBasketItemQuantity = 35,
         ClearBasket = 36,
+
+        GetShopOrders = 37,
+        GetShopOrderById = 38,
+        UpdateShopOrderStatus = 39,
+
+        GetCustomerOrders = 40,
+        GetCustomerOrderById = 41,
+        CreateCustomerOrder = 42,
+        CancelCustomerOrder = 43,
     }
 }

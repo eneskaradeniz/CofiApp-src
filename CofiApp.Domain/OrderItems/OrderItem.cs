@@ -1,6 +1,6 @@
 ﻿using CofiApp.Domain.Core.Abstractions;
 using CofiApp.Domain.Core.Primitives;
-using CofiApp.Domain.OrderItemOptions;
+using CofiApp.Domain.OrderItemOptionGroups;
 using CofiApp.Domain.Orders;
 
 namespace CofiApp.Domain.OrderItems
@@ -20,6 +20,6 @@ namespace CofiApp.Domain.OrderItems
         public DateTime CreatedOnUtc { get; set; }
         public DateTime? ModifiedOnUtc { get; set; }
 
-        public ICollection<OrderItemOption> OrderItemOptions { get; set; }
+        public ICollection<OrderItemOptionGroup> OrderItemOptionGroups { get; set; } = [];
     }
 }

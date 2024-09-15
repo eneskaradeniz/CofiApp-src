@@ -25,7 +25,7 @@ namespace CofiApp.Api.Controllers
         }
 
         [HasPermission(Permission.GetUserById)]
-        [HttpGet(ApiRoutes.Users.GetById)]
+        [HttpGet(ApiRoutes.Admin.Users.GetById)]
         [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(Guid userId) =>
@@ -35,7 +35,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, NotFound);
 
         [HasPermission(Permission.GetUsers)]
-        [HttpGet(ApiRoutes.Users.Get)]
+        [HttpGet(ApiRoutes.Admin.Users.Get)]
         [ProducesResponseType(typeof(PagedList<UserResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int page, int pageSize) =>
@@ -45,7 +45,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, NotFound);
 
         [HasPermission(Permission.UpdateUser)]
-        [HttpPut(ApiRoutes.Users.Update)]
+        [HttpPut(ApiRoutes.Admin.Users.Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(Guid userId, [FromBody] UpdateUserRequest updateUserRequest) =>
@@ -55,7 +55,7 @@ namespace CofiApp.Api.Controllers
                 .Match(Ok, BadRequest);
 
         [HasPermission(Permission.RemoveUser)]
-        [HttpDelete(ApiRoutes.Users.Remove)]
+        [HttpDelete(ApiRoutes.Admin.Users.Remove)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Remove(Guid userId) =>
@@ -63,7 +63,7 @@ namespace CofiApp.Api.Controllers
                 .Bind(command => Mediator.Send(command))
                 .Match(Ok, BadRequest);
 
-        [HttpGet(ApiRoutes.Users.GetMyProfile)]
+        [HttpGet(ApiRoutes.Customer.Users.GetMyProfile)]
         [ProducesResponseType(typeof(MyProfileResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetMyProfile() =>
@@ -71,7 +71,7 @@ namespace CofiApp.Api.Controllers
                 .Bind(query => Mediator.Send(query))
                 .Match(Ok, BadRequest);
 
-        [HttpPut(ApiRoutes.Users.UpdateMyProfile)]
+        [HttpPut(ApiRoutes.Customer.Users.UpdateMyProfile)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateMyProfile([FromBody] UpdateMyProfileRequest updateMyProfileRequest) =>

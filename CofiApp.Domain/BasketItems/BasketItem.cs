@@ -20,5 +20,9 @@ namespace CofiApp.Domain.BasketItems
         public DateTime? ModifiedOnUtc { get; set; }
 
         public ICollection<BasketItemOptionGroup> BasketItemOptionGroups { get; set; } = [];
+        
+        public decimal TotalPrice => (Product.Price + TotalOptionsPrice) * Quantity;
+
+        private decimal TotalOptionsPrice => BasketItemOptionGroups.Sum(biog => biog.TotalPrice);
     }
 }

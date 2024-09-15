@@ -22,7 +22,7 @@ namespace CofiApp.Api.Controllers
         {
         }
 
-        [HttpPost(ApiRoutes.Authentication.Login)]
+        [HttpPost(ApiRoutes.Public.Authentication.Login)]
         [ProducesResponseType(typeof(TokenResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest) =>
@@ -31,7 +31,7 @@ namespace CofiApp.Api.Controllers
                 .Bind(command => Mediator.Send(command))
                 .Match(Ok, BadRequest);
 
-        [HttpPost(ApiRoutes.Authentication.Register)]
+        [HttpPost(ApiRoutes.Public.Authentication.Register)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] RegisterRequest registerRequest) =>
@@ -45,7 +45,7 @@ namespace CofiApp.Api.Controllers
                 .Bind(command => Mediator.Send(command))
                 .Match(Ok, BadRequest);
 
-        [HttpPost(ApiRoutes.Authentication.RefreshToken)]
+        [HttpPost(ApiRoutes.Public.Authentication.RefreshToken)]
         [ProducesResponseType(typeof(TokenResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest refreshTokenRequest) =>
@@ -54,7 +54,7 @@ namespace CofiApp.Api.Controllers
                 .Bind(command => Mediator.Send(command))
                 .Match(Ok, BadRequest);
 
-        [HttpGet(ApiRoutes.Authentication.EmailConfirmation)]
+        [HttpGet(ApiRoutes.Public.Authentication.EmailConfirmation)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> EmailConfirmation([FromQuery] string token) =>
@@ -63,7 +63,7 @@ namespace CofiApp.Api.Controllers
                 .Bind(command => Mediator.Send(command))
                 .Match(Ok, BadRequest);
 
-        [HttpPost(ApiRoutes.Authentication.ForgotPassword)]
+        [HttpPost(ApiRoutes.Public.Authentication.ForgotPassword)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ForgotPassword([FromQuery] string email) =>
@@ -72,7 +72,7 @@ namespace CofiApp.Api.Controllers
                 .Bind(command => Mediator.Send(command))
                 .Match(Ok, BadRequest);
 
-        [HttpPost(ApiRoutes.Authentication.ResetPassword)]
+        [HttpPost(ApiRoutes.Public.Authentication.ResetPassword)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest resetPasswordRequest) =>

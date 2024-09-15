@@ -19,5 +19,7 @@ namespace CofiApp.Domain.Baskets
 
         public ICollection<BasketItem> BasketItems { get; set; } = [];
         public ICollection<Order> Orders { get; set; } = [];
+
+        public decimal TotalPrice => BasketItems.Sum(x => x.TotalPrice);
     }
 }

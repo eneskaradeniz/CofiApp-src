@@ -1,6 +1,7 @@
 ﻿using CofiApp.Application.Abstractions.Data;
 using CofiApp.Application.Abstractions.Messaging;
 using CofiApp.Contracts.ProductOptionGroups;
+using CofiApp.Contracts.ProductOptions;
 using CofiApp.Domain.Core.Primitives.Maybe;
 using CofiApp.Domain.ProductOptionGroups;
 using Microsoft.EntityFrameworkCore;
@@ -35,9 +36,7 @@ namespace CofiApp.Application.ProductOptionGroups.Queries.GetProductOptionGroups
                     {
                         Id = po.Id,
                         Name = po.Name,
-                        Price = po.Price,
-                        CreatedOnUtc = po.CreatedOnUtc,
-                        ModifiedOnUtc = po.ModifiedOnUtc
+                        Price = po.Price
                     })
                 }).ToListAsync(cancellationToken);
 
