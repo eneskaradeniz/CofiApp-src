@@ -21,6 +21,9 @@ namespace CofiApp.Persistence.Configurations
                 .HasMaxLength(100)
                 .IsRequired();
 
+            builder.Property(mc => mc.DisplayOrder)
+                .IsRequired();
+
             builder.Property(mc => mc.CreatedOnUtc)
                 .IsRequired();
 

@@ -1,4 +1,4 @@
-﻿namespace CofiApp.Contracts.Baskets
+﻿namespace CofiApp.Contracts.ProductOptions
 {
     public class ProductOptionDto
     {

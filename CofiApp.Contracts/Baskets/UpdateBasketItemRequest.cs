@@ -1,4 +1,6 @@
-﻿namespace CofiApp.Contracts.Baskets
+﻿using CofiApp.Contracts.ProductOptions;
+
+namespace CofiApp.Contracts.Baskets
 {
     public class UpdateBasketItemRequest
     {

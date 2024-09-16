@@ -19,6 +19,7 @@ namespace CofiApp.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
                     CreatedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOnUtc = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -458,12 +459,12 @@ namespace CofiApp.Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "MenuCategories",
-                columns: new[] { "Id", "CreatedOnUtc", "ModifiedOnUtc", "Name" },
+                columns: new[] { "Id", "CreatedOnUtc", "DisplayOrder", "ModifiedOnUtc", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("4e7aa678-4b40-46d9-8027-7cf07c0c4592"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9000), null, "Sıcak Kahveler" },
-                    { new Guid("e85a32df-ed18-4577-b90e-8a61d60b9238"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9001), null, "Soğuk Kahveler" },
-                    { new Guid("f2df5d81-e7d9-401d-818f-90dd73d23745"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(8998), null, "Öne Çıkaranlar" }
+                    { new Guid("0b75f0a3-a098-49aa-8f2f-67894aaaaa17"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5741), 2, null, "Sıcak Kahveler" },
+                    { new Guid("1a0c9d85-9a56-4e70-be81-6037407e4987"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5751), 3, null, "Soğuk Kahveler" },
+                    { new Guid("2d961f13-b7a7-4d79-a863-6331d5eb3f65"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5738), 1, null, "Öne Çıkaranlar" }
                 });
 
             migrationBuilder.InsertData(
@@ -489,31 +490,32 @@ namespace CofiApp.Persistence.Migrations
                     { 16, "CreateMenuCategory" },
                     { 17, "UpdateMenuCategory" },
                     { 18, "RemoveMenuCategory" },
-                    { 19, "GetProducts" },
-                    { 20, "GetProductById" },
-                    { 21, "CreateProduct" },
-                    { 22, "UpdateProduct" },
-                    { 23, "RemoveProduct" },
-                    { 24, "UpdateProductMenuCategories" },
-                    { 25, "GetProductOptionGroupsWithOptions" },
-                    { 26, "CreateProductOptionGroup" },
-                    { 27, "UpdateProductOptionGroup" },
-                    { 28, "RemoveProductOptionGroup" },
-                    { 29, "CreateProductOption" },
-                    { 30, "UpdateProductOption" },
-                    { 31, "RemoveProductOption" },
-                    { 32, "GetActiveBasket" },
-                    { 33, "CreateBasketItem" },
-                    { 34, "UpdateBasketItem" },
-                    { 35, "UpdateBasketItemQuantity" },
-                    { 36, "ClearBasket" },
-                    { 37, "GetShopOrders" },
-                    { 38, "GetShopOrderById" },
-                    { 39, "UpdateShopOrderStatus" },
-                    { 40, "GetCustomerOrders" },
-                    { 41, "GetCustomerOrderById" },
-                    { 42, "CreateCustomerOrder" },
-                    { 43, "CancelCustomerOrder" }
+                    { 19, "UpdateMenuCategoriesDisplayOrder" },
+                    { 20, "GetProducts" },
+                    { 21, "GetProductById" },
+                    { 22, "CreateProduct" },
+                    { 23, "UpdateProduct" },
+                    { 24, "RemoveProduct" },
+                    { 25, "UpdateProductMenuCategories" },
+                    { 26, "GetProductOptionGroupsWithOptions" },
+                    { 27, "CreateProductOptionGroup" },
+                    { 28, "UpdateProductOptionGroup" },
+                    { 29, "RemoveProductOptionGroup" },
+                    { 30, "CreateProductOption" },
+                    { 31, "UpdateProductOption" },
+                    { 32, "RemoveProductOption" },
+                    { 33, "GetActiveBasket" },
+                    { 34, "CreateBasketItem" },
+                    { 35, "UpdateBasketItem" },
+                    { 36, "UpdateBasketItemQuantity" },
+                    { 37, "ClearBasket" },
+                    { 38, "GetShopOrders" },
+                    { 39, "GetShopOrderById" },
+                    { 40, "UpdateShopOrderStatus" },
+                    { 41, "GetCustomerOrders" },
+                    { 42, "GetCustomerOrderById" },
+                    { 43, "CreateCustomerOrder" },
+                    { 44, "CancelCustomerOrder" }
                 });
 
             migrationBuilder.InsertData(
@@ -521,33 +523,33 @@ namespace CofiApp.Persistence.Migrations
                 columns: new[] { "Id", "CreatedOnUtc", "DeletedOnUtc", "Description", "ModifiedOnUtc", "Name", "Price" },
                 values: new object[,]
                 {
-                    { new Guid("9fc0883a-bf2d-496c-a74b-2479d12c3f1f"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9040), null, null, null, "Latte", 15m },
-                    { new Guid("b173d0c5-4dd6-4549-824f-9be3373e6adb"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9045), null, null, null, "Ice Latte", 10m },
-                    { new Guid("d4cf9f27-b26a-4505-8778-ad2c542cc79c"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9044), null, null, null, "Ice Americano", 10m },
-                    { new Guid("d57f1c2e-343b-4608-b9fb-1886cee23d9b"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9042), null, null, null, "Mocha", 20m }
+                    { new Guid("1e7aea90-f574-4c9f-813f-fea47f22433c"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5795), null, null, null, "Ice Latte", 10m },
+                    { new Guid("29d5ad9f-1a84-44a2-b7cf-59b9b8c6ad18"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5790), null, null, null, "Latte", 15m },
+                    { new Guid("563e0732-83e9-4715-9b37-ea4d7526758d"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5794), null, null, null, "Ice Americano", 10m },
+                    { new Guid("936024fc-d24e-41da-8a05-16302b162ff0"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5793), null, null, null, "Mocha", 20m }
                 });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "CreatedOnUtc", "ModifiedOnUtc", "Name" },
-                values: new object[] { new Guid("2c323a58-da8d-407e-a4d8-9ea3d15d66b4"), new DateTime(2024, 9, 15, 12, 5, 8, 4, DateTimeKind.Utc).AddTicks(1778), null, "Administrator" });
+                values: new object[] { new Guid("7478f32f-75b9-4f61-8141-1343f1f2957e"), new DateTime(2024, 9, 16, 12, 40, 40, 704, DateTimeKind.Utc).AddTicks(6123), null, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedOnUtc", "DeletedOnUtc", "Email", "EmailConfirmed", "FirstName", "LastName", "ModifiedOnUtc", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed" },
-                values: new object[] { new Guid("676fb5db-8315-4592-a06e-ab9720e53aa5"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(8808), null, "eneskrdnz28@gmail.com", true, "Enes", "Karadeniz", null, "74B4CF32C649297FD6CE091B6F3F59A83CDD85C718D956B312A590C14D40E20E-86140FFF7D68BE64025CC224D03C1BFB", null, false });
+                values: new object[] { new Guid("911cb4e8-997e-4dfd-a85b-c8e91cd6fca9"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5479), null, "eneskrdnz28@gmail.com", true, "Enes", "Karadeniz", null, "2989900E22F3B2EB5E62412E941CF157B914B0EE866C39A9D1B8C92825FE1DA1-3DEFFE92324E874ACC59122A1D44D366", null, false });
 
             migrationBuilder.InsertData(
                 table: "ProductMenuCategories",
                 columns: new[] { "MenuCategoryId", "ProductId" },
                 values: new object[,]
                 {
-                    { new Guid("4e7aa678-4b40-46d9-8027-7cf07c0c4592"), new Guid("9fc0883a-bf2d-496c-a74b-2479d12c3f1f") },
-                    { new Guid("f2df5d81-e7d9-401d-818f-90dd73d23745"), new Guid("9fc0883a-bf2d-496c-a74b-2479d12c3f1f") },
-                    { new Guid("e85a32df-ed18-4577-b90e-8a61d60b9238"), new Guid("b173d0c5-4dd6-4549-824f-9be3373e6adb") },
-                    { new Guid("e85a32df-ed18-4577-b90e-8a61d60b9238"), new Guid("d4cf9f27-b26a-4505-8778-ad2c542cc79c") },
-                    { new Guid("4e7aa678-4b40-46d9-8027-7cf07c0c4592"), new Guid("d57f1c2e-343b-4608-b9fb-1886cee23d9b") },
-                    { new Guid("f2df5d81-e7d9-401d-818f-90dd73d23745"), new Guid("d57f1c2e-343b-4608-b9fb-1886cee23d9b") }
+                    { new Guid("1a0c9d85-9a56-4e70-be81-6037407e4987"), new Guid("1e7aea90-f574-4c9f-813f-fea47f22433c") },
+                    { new Guid("0b75f0a3-a098-49aa-8f2f-67894aaaaa17"), new Guid("29d5ad9f-1a84-44a2-b7cf-59b9b8c6ad18") },
+                    { new Guid("2d961f13-b7a7-4d79-a863-6331d5eb3f65"), new Guid("29d5ad9f-1a84-44a2-b7cf-59b9b8c6ad18") },
+                    { new Guid("1a0c9d85-9a56-4e70-be81-6037407e4987"), new Guid("563e0732-83e9-4715-9b37-ea4d7526758d") },
+                    { new Guid("0b75f0a3-a098-49aa-8f2f-67894aaaaa17"), new Guid("936024fc-d24e-41da-8a05-16302b162ff0") },
+                    { new Guid("2d961f13-b7a7-4d79-a863-6331d5eb3f65"), new Guid("936024fc-d24e-41da-8a05-16302b162ff0") }
                 });
 
             migrationBuilder.InsertData(
@@ -555,39 +557,39 @@ namespace CofiApp.Persistence.Migrations
                 columns: new[] { "Id", "CreatedOnUtc", "IsRequired", "ModifiedOnUtc", "Name", "ProductId" },
                 values: new object[,]
                 {
-                    { new Guid("08dd8ba5-2c42-414c-bd30-42abb832d2e6"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9090), true, null, "Boy Seçimi", new Guid("b173d0c5-4dd6-4549-824f-9be3373e6adb") },
-                    { new Guid("6d648357-b733-4882-b1a7-1a97ac543b3d"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9088), true, null, "Boy Seçimi", new Guid("d57f1c2e-343b-4608-b9fb-1886cee23d9b") },
-                    { new Guid("7381447f-0880-4891-bb6e-281624d27818"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9085), true, null, "Boy Seçimi", new Guid("9fc0883a-bf2d-496c-a74b-2479d12c3f1f") },
-                    { new Guid("841154da-db07-4f75-9fa5-8ca2d5070cf9"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9091), true, null, "Boy Seçimi", new Guid("d4cf9f27-b26a-4505-8778-ad2c542cc79c") }
+                    { new Guid("4c75965d-1977-4449-98be-6ce8fdd4e1d9"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5900), true, null, "Boy Seçimi", new Guid("29d5ad9f-1a84-44a2-b7cf-59b9b8c6ad18") },
+                    { new Guid("51a4a541-5c99-45d4-9d32-72a6e92442b0"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5904), true, null, "Boy Seçimi", new Guid("1e7aea90-f574-4c9f-813f-fea47f22433c") },
+                    { new Guid("8fad5075-71f4-48ad-bf0e-3a2de9b975b6"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5903), true, null, "Boy Seçimi", new Guid("936024fc-d24e-41da-8a05-16302b162ff0") },
+                    { new Guid("f3bb791e-b1a0-4f0b-96a3-8c9dc70e12d1"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5908), true, null, "Boy Seçimi", new Guid("563e0732-83e9-4715-9b37-ea4d7526758d") }
                 });
 
             migrationBuilder.InsertData(
                 table: "RolePermission",
                 columns: new[] { "PermissionId", "RoleId" },
-                values: new object[] { 1, new Guid("2c323a58-da8d-407e-a4d8-9ea3d15d66b4") });
+                values: new object[] { 1, new Guid("7478f32f-75b9-4f61-8141-1343f1f2957e") });
 
             migrationBuilder.InsertData(
                 table: "UserRole",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { new Guid("2c323a58-da8d-407e-a4d8-9ea3d15d66b4"), new Guid("676fb5db-8315-4592-a06e-ab9720e53aa5") });
+                values: new object[] { new Guid("7478f32f-75b9-4f61-8141-1343f1f2957e"), new Guid("911cb4e8-997e-4dfd-a85b-c8e91cd6fca9") });
 
             migrationBuilder.InsertData(
                 table: "ProductOptions",
                 columns: new[] { "Id", "CreatedOnUtc", "ModifiedOnUtc", "Name", "Price", "ProductOptionGroupId" },
                 values: new object[,]
                 {
-                    { new Guid("1d84823f-556e-4587-92e5-40abb356b154"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9135), null, "Büyük", 4m, new Guid("841154da-db07-4f75-9fa5-8ca2d5070cf9") },
-                    { new Guid("29d141f4-8877-4c1e-82dd-4019bbbbdf91"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9124), null, "Standart", 0m, new Guid("6d648357-b733-4882-b1a7-1a97ac543b3d") },
-                    { new Guid("454dcac1-227d-4361-bd5d-cc695bc8930c"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9131), null, "Büyük", 4m, new Guid("08dd8ba5-2c42-414c-bd30-42abb832d2e6") },
-                    { new Guid("5a1b873d-3dc7-4174-9021-bd677b0af437"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9130), null, "Orta", 2m, new Guid("08dd8ba5-2c42-414c-bd30-42abb832d2e6") },
-                    { new Guid("61b3677e-187f-4d37-9c13-2477302d4410"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9119), null, "Standart", 0m, new Guid("7381447f-0880-4891-bb6e-281624d27818") },
-                    { new Guid("771f2cce-e875-41f5-91cf-ad4ca73f9a1e"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9127), null, "Orta", 2m, new Guid("6d648357-b733-4882-b1a7-1a97ac543b3d") },
-                    { new Guid("816c45ce-1f9f-43a1-8be7-8249cef1d761"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9128), null, "Büyük", 4m, new Guid("6d648357-b733-4882-b1a7-1a97ac543b3d") },
-                    { new Guid("8394efbc-ec9a-4ae4-8f0a-752304966dc6"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9122), null, "Büyük", 4m, new Guid("7381447f-0880-4891-bb6e-281624d27818") },
-                    { new Guid("906b6099-2309-498d-86b7-1c30aca1518a"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9121), null, "Orta", 2m, new Guid("7381447f-0880-4891-bb6e-281624d27818") },
-                    { new Guid("cf71a397-1dcb-4609-90c5-3bea3e37b2ff"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9129), null, "Standart", 0m, new Guid("08dd8ba5-2c42-414c-bd30-42abb832d2e6") },
-                    { new Guid("e891e902-e9a3-4db8-8bac-280b5f6912ae"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9134), null, "Orta", 2m, new Guid("841154da-db07-4f75-9fa5-8ca2d5070cf9") },
-                    { new Guid("f984402f-33b3-4fb2-b5b8-473bba0ac7be"), new DateTime(2024, 9, 15, 12, 5, 8, 7, DateTimeKind.Utc).AddTicks(9133), null, "Standart", 0m, new Guid("841154da-db07-4f75-9fa5-8ca2d5070cf9") }
+                    { new Guid("2d7c3095-d013-44fd-a97c-ef5bc3e82242"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5946), null, "Büyük", 4m, new Guid("8fad5075-71f4-48ad-bf0e-3a2de9b975b6") },
+                    { new Guid("34b4e723-ffec-4e0e-aadf-6c9f8cde8d98"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5944), null, "Standart", 0m, new Guid("8fad5075-71f4-48ad-bf0e-3a2de9b975b6") },
+                    { new Guid("3c1b7d64-169d-4c6d-b773-59d4ecabea96"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5955), null, "Büyük", 4m, new Guid("f3bb791e-b1a0-4f0b-96a3-8c9dc70e12d1") },
+                    { new Guid("41823911-7c34-4558-b339-8193f61a82ad"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5941), null, "Orta", 2m, new Guid("4c75965d-1977-4449-98be-6ce8fdd4e1d9") },
+                    { new Guid("5c495d37-3078-45fe-a30f-544ecb3447b2"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5954), null, "Orta", 2m, new Guid("f3bb791e-b1a0-4f0b-96a3-8c9dc70e12d1") },
+                    { new Guid("6c012c11-b8f3-47cb-865d-2a3371f2a1f6"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5945), null, "Orta", 2m, new Guid("8fad5075-71f4-48ad-bf0e-3a2de9b975b6") },
+                    { new Guid("7d70ac35-97b6-46a8-891a-0cec1d6ba5f7"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5947), null, "Standart", 0m, new Guid("51a4a541-5c99-45d4-9d32-72a6e92442b0") },
+                    { new Guid("8d591048-d156-4f8d-a1ae-3afb2ecbb3d5"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5951), null, "Büyük", 4m, new Guid("51a4a541-5c99-45d4-9d32-72a6e92442b0") },
+                    { new Guid("9458cfc0-f4b0-4245-bc6a-767b69a2b35e"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5940), null, "Standart", 0m, new Guid("4c75965d-1977-4449-98be-6ce8fdd4e1d9") },
+                    { new Guid("a476f05f-46a3-4f4f-bfe9-c887c6ce1c71"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5950), null, "Orta", 2m, new Guid("51a4a541-5c99-45d4-9d32-72a6e92442b0") },
+                    { new Guid("aa96cdb2-bacb-4a7e-9d0a-f2261c33492e"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5942), null, "Büyük", 4m, new Guid("4c75965d-1977-4449-98be-6ce8fdd4e1d9") },
+                    { new Guid("cd13ad25-73d1-4e5a-be42-357bcfacf42a"), new DateTime(2024, 9, 16, 12, 40, 40, 708, DateTimeKind.Utc).AddTicks(5953), null, "Standart", 0m, new Guid("f3bb791e-b1a0-4f0b-96a3-8c9dc70e12d1") }
                 });
 
             migrationBuilder.CreateIndex(

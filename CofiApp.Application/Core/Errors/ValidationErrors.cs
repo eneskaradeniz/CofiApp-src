@@ -56,6 +56,9 @@ namespace CofiApp.Application.Core.Errors
             internal static Error IdIsRequired = new("MenuCategories.IdIsRequired", "The id is required.");
             internal static Error NameIsRequired = new("MenuCategories.NameIsRequired", "The name is required.");
             internal static Error NameIsTooLong = new("MenuCategories.NameIsTooLong", "The name is too long.");
+            internal static Error UpdateMenuCategoriesDisplayOrdersIsRequired = new("MenuCategories.UpdateMenuCategoriesDisplayOrdersIsRequired", "The update menu categories display orders is required.");
+            internal static Error UpdateMenuCategoriesDisplayOrdersMustBeUnique = new("MenuCategories.UpdateMenuCategoriesDisplayOrdersMustBeUnique", "The update menu categories display orders must be unique.");
+
         }
 
         internal static class Products

@@ -81,6 +81,7 @@ namespace CofiApp.Persistence
             {
                 Id = Guid.NewGuid(),
                 Name = "Öne Çıkaranlar",
+                DisplayOrder = 1,
                 CreatedOnUtc = _dateTime.UtcNow
             };
 
@@ -88,6 +89,7 @@ namespace CofiApp.Persistence
             {
                 Id = Guid.NewGuid(),
                 Name = "Sıcak Kahveler",
+                DisplayOrder = 2,
                 CreatedOnUtc = _dateTime.UtcNow
             };
 
@@ -95,6 +97,7 @@ namespace CofiApp.Persistence
             {
                 Id = Guid.NewGuid(),
                 Name = "Soğuk Kahveler",
+                DisplayOrder = 3,
                 CreatedOnUtc = _dateTime.UtcNow
             };
 

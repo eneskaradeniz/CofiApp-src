@@ -20,6 +20,7 @@ namespace CofiApp.Application.MenuCategories.Queries.PublicGetMenuCategories
         {
             List<PublicMenuCategoryResponse> responseArray = await _dbContext.Set<MenuCategory>()
                 .AsNoTracking()
+                .OrderBy(x => x.DisplayOrder)
                 .Select(x => new PublicMenuCategoryResponse
                 {
                     Id = x.Id,

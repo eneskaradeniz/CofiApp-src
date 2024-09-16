@@ -9,10 +9,17 @@ namespace CofiApp.Domain.MenuCategories
     {
         public required string Name { get; set; }
 
+        public int DisplayOrder { get; set; }
+
         public DateTime CreatedOnUtc { get; set; }
         public DateTime? ModifiedOnUtc { get; set; }
 
         public ICollection<ProductMenuCategory> ProductMenuCategories { get; set; } = [];
         public ICollection<Product> Products { get; set; } = [];
+
+        public void UpdateDisplayOrder(int displayOrder)
+        {
+            DisplayOrder = displayOrder;
+        }
     }
 }

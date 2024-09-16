@@ -1,7 +1,7 @@
 ﻿using CofiApp.Application.Abstractions.Authentication;
 using CofiApp.Application.Abstractions.Data;
 using CofiApp.Application.Abstractions.Messaging;
-using CofiApp.Contracts.Baskets;
+using CofiApp.Contracts.ProductOptions;
 using CofiApp.Domain.BasketItemOptionGroups;
 using CofiApp.Domain.BasketItemOptions;
 using CofiApp.Domain.BasketItems;

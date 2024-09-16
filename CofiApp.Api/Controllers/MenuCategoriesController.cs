@@ -2,6 +2,7 @@
 using CofiApp.Api.Infrastructure;
 using CofiApp.Application.MenuCategories.Commands.CreateMenuCategory;
 using CofiApp.Application.MenuCategories.Commands.RemoveMenuCategory;
+using CofiApp.Application.MenuCategories.Commands.UpdateMenuCategoriesDisplayOrder;
 using CofiApp.Application.MenuCategories.Commands.UpdateMenuCategory;
 using CofiApp.Application.MenuCategories.Queries.GetMenuCategories;
 using CofiApp.Application.MenuCategories.Queries.GetMenuCategoryById;
@@ -75,6 +76,16 @@ namespace CofiApp.Api.Controllers
                 .Bind(command => Mediator.Send(command))
                 .Match(Ok, BadRequest);
 
+        [HasPermission(Permission.UpdateMenuCategoriesDisplayOrder)]
+        [HttpPut(ApiRoutes.Shop.MenuCategories.UpdateDisplayOrder)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateDisplayOrder([FromBody] UpdateMenuCategoriesDisplayOrderRequest updateMenuCategoriesDisplayOrderRequest) =>
+            await Result.Create(updateMenuCategoriesDisplayOrderRequest, DomainErrors.General.UnProcessableRequest)
+                .Map(request => new UpdateMenuCategoriesDisplayOrderCommand(request.UpdateMenuCategoriesDisplayOrders))
+                .Bind(command => Mediator.Send(command))
+                .Match(Ok, BadRequest);
+
         [AllowAnonymous]
         [HttpGet(ApiRoutes.Public.MenuCategories.Get)]
         [ProducesResponseType(typeof(PagedList<PublicMenuCategoryResponse>), StatusCodes.Status200OK)]
@@ -84,7 +95,7 @@ namespace CofiApp.Api.Controllers
                 .From(new PublicGetMenuCategoriesQuery())
                 .Bind(query => Mediator.Send(query))
                 .Match(Ok, NotFound);
-        
+
         [AllowAnonymous]
         [HttpGet(ApiRoutes.Public.MenuCategories.GetByIdWithProducts)]
         [ProducesResponseType(typeof(PagedList<MenuCategoryWithProductsResponse>), StatusCodes.Status200OK)]

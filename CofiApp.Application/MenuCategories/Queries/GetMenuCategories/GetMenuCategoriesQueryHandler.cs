@@ -21,6 +21,7 @@ namespace CofiApp.Application.MenuCategories.Queries.GetMenuCategories
         {
             IQueryable<MenuCategoryResponse> query = _dbContext.Set<MenuCategory>()
                 .AsNoTracking()
+                .OrderBy(x => x.DisplayOrder)
                 .Select(x => new MenuCategoryResponse
                 {
                     Id = x.Id,

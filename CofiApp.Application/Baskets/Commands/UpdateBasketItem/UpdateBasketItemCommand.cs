@@ -1,5 +1,5 @@
 ﻿using CofiApp.Application.Abstractions.Messaging;
-using CofiApp.Contracts.Baskets;
+using CofiApp.Contracts.ProductOptions;
 using CofiApp.Domain.Core.Primitives.Result;
 
 namespace CofiApp.Application.Baskets.Commands.UpdateBasketItem

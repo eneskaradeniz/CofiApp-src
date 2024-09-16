@@ -11,12 +11,14 @@ namespace CofiApp.Persistence.Repositories
         protected GenericRepository(IDbContext dbContext) => DbContext = dbContext;
 
         protected IDbContext DbContext { get; }
-        
+
         public async Task<bool> AnyAsync(Guid id, CancellationToken cancellationToken = default) =>
             await DbContext.Set<TEntity>()
                 .AsNoTracking()
                 .AsQueryable()
                 .AnyAsync(x => x.Id == id, cancellationToken);
+
+        public async Task<int> CountAsync(CancellationToken cancellationToken = default) => await DbContext.Set<TEntity>().CountAsync(cancellationToken);
 
         public async Task<Maybe<TEntity>> GetByIdAsync(Guid id) => await DbContext.GetByIdAsync<TEntity>(id);
 

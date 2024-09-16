@@ -78,6 +78,8 @@
                 public const string Update = "shop/menu-categories/{menuCategoryId:guid}";
 
                 public const string Remove = "shop/menu-categories/{menuCategoryId:guid}";
+
+                public const string UpdateDisplayOrder = "shop/menu-categories/display-order";
             }
 
             public static class Products
