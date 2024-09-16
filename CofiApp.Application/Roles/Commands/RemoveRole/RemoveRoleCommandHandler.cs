@@ -19,7 +19,7 @@ namespace CofiApp.Application.Roles.Commands.RemoveRole
 
         public async Task<Result> Handle(RemoveRoleCommand request, CancellationToken cancellationToken)
         {
-            Role role = await _roleRepository.GetByIdAsync(request.RoleId);
+            Role role = await _roleRepository.GetByIdAsync(request.RoleId, cancellationToken);
             if (role is null)
             {
                 return Result.Failure(DomainErrors.General.NotFound);

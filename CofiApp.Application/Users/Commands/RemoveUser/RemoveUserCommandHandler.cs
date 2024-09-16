@@ -19,7 +19,7 @@ namespace CofiApp.Application.Users.Commands.RemoveUser
         
         public async Task<Result> Handle(RemoveUserCommand request, CancellationToken cancellationToken)
         {
-            var maybeUser = await _userRepository.GetByIdAsync(request.UserId);
+            var maybeUser = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
 
             if (maybeUser.HasNoValue)
             {

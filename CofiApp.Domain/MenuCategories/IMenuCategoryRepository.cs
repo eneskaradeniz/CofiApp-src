@@ -4,7 +4,7 @@ namespace CofiApp.Domain.MenuCategories
 {
     public interface IMenuCategoryRepository
     {
-        Task<Maybe<MenuCategory>> GetByIdAsync(Guid menuCategoryId);
+        Task<Maybe<MenuCategory>> GetByIdAsync(Guid menuCategoryId, CancellationToken cancellationToken = default);
         Task<bool> IsNameUniqueAsync(string name, CancellationToken cancellationToken = default);
         void Insert(MenuCategory menuCategory);
         void Update(MenuCategory menuCategory);

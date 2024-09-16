@@ -20,7 +20,7 @@ namespace CofiApp.Application.Products.Commands.RemoveProduct
 
         public async Task<Result> Handle(RemoveProductCommand request, CancellationToken cancellationToken)
         {
-            Maybe<Product> maybeProduct = await _productRepository.GetByIdAsync(request.Id);
+            Maybe<Product> maybeProduct = await _productRepository.GetByIdAsync(request.Id, cancellationToken);
 
             if (maybeProduct.HasNoValue)
             {

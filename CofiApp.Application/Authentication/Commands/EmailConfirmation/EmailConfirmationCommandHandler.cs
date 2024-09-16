@@ -37,7 +37,7 @@ namespace CofiApp.Application.Authentication.Commands.EmailConfirmation
                 return Result.Failure(DomainErrors.Authentication.InvalidEmailConfirmationToken);
             }
 
-            var maybeUser = await _userRepository.GetByIdAsync(userVerificationToken.UserId);
+            var maybeUser = await _userRepository.GetByIdAsync(userVerificationToken.UserId, cancellationToken);
 
             if (maybeUser.HasNoValue)
             {

@@ -108,11 +108,18 @@ namespace CofiApp.Persistence
            where TEntity : Entity
             => base.Set<TEntity>();
 
-        public async Task<Maybe<TEntity>> GetByIdAsync<TEntity>(Guid id)
+        public async Task<bool> AnyAsync<TEntity>(Guid id, CancellationToken cancellationToken = default)
+            where TEntity : Entity
+            => await Set<TEntity>()
+                .AsNoTracking()
+                .AsQueryable()
+                .AnyAsync(x => x.Id == id, cancellationToken);
+
+        public async Task<Maybe<TEntity>> GetByIdAsync<TEntity>(Guid id, CancellationToken cancellationToken = default)
             where TEntity : Entity
             => id == Guid.Empty ?
                 Maybe<TEntity>.None :
-                Maybe<TEntity>.From(await Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id));
+                Maybe<TEntity>.From(await Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id, cancellationToken));
 
         public void Insert<TEntity>(TEntity entity)
             where TEntity : Entity
@@ -122,12 +129,24 @@ namespace CofiApp.Persistence
             where TEntity : Entity
             => Set<TEntity>().AddRange(entities);
 
+        public new void Update<TEntity>(TEntity entity)
+            where TEntity : Entity
+            => Set<TEntity>().Update(entity);
+
         public new void Remove<TEntity>(TEntity entity)
             where TEntity : Entity
             => Set<TEntity>().Remove(entity);
 
-        public Task<int> ExecuteSqlAsync(string sql, IEnumerable<SqlParameter> parameters, CancellationToken cancellationToken = default)
-            => Database.ExecuteSqlRawAsync(sql, parameters, cancellationToken);
+        public void RemoveRange<TEntity>(IReadOnlyCollection<TEntity> entities)
+            where TEntity : Entity 
+            => Set<TEntity>().RemoveRange(entities);
+
+        public async Task<int> CountAsync<TEntity>(CancellationToken cancellationToken = default) 
+            where TEntity : Entity 
+            => await Set<TEntity>().CountAsync(cancellationToken);
+
+        public async Task<int> ExecuteSqlAsync(string sql, IEnumerable<SqlParameter> parameters, CancellationToken cancellationToken = default)
+            => await Database.ExecuteSqlRawAsync(sql, parameters, cancellationToken);
 
         #endregion
     }

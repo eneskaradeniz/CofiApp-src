@@ -34,3 +34,10 @@ services:
     ports:
       - 5341:5341
       - 8081:80
+
+  cofiapp.cache:
+    image: redis:latest
+    container_name: CofiApp.Cache
+    restart: always
+    ports:
+      - 6379:6379

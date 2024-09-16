@@ -19,7 +19,7 @@ namespace CofiApp.Application.MenuCategories.Commands.UpdateMenuCategory
 
         public async Task<Result> Handle(UpdateMenuCategoryCommand request, CancellationToken cancellationToken)
         {
-            var maybeMenuCategory = await _menuCategoryRepository.GetByIdAsync(request.Id);
+            var maybeMenuCategory = await _menuCategoryRepository.GetByIdAsync(request.Id, cancellationToken);
 
             if (maybeMenuCategory.HasNoValue)
             {

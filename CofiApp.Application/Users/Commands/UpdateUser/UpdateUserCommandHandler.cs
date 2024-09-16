@@ -19,7 +19,7 @@ namespace CofiApp.Application.Users.Commands.UpdateUser
 
         public async Task<Result> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var maybeUser = await _userRepository.GetByIdAsync(request.UserId);
+            var maybeUser = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
 
             if (maybeUser.HasNoValue)
             {

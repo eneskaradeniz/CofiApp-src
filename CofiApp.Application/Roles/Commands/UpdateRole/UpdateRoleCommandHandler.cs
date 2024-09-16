@@ -19,7 +19,7 @@ namespace CofiApp.Application.Roles.Commands.UpdateRole
 
         public async Task<Result> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
         {
-            Role role = await _roleRepository.GetByIdAsync(request.RoleId);
+            Role role = await _roleRepository.GetByIdAsync(request.RoleId, cancellationToken);
 
             if (role is null)
             {

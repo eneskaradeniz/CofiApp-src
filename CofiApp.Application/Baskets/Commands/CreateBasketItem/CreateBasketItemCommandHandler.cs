@@ -63,7 +63,7 @@ namespace CofiApp.Application.Baskets.Commands.CreateBasketItem
             if (existingBasketItem is null)
             {
                 // Ürün sepette yoksa ya da opsiyon grupları ve opsiyonlar farklıysa, yeni bir BasketItem eklenir
-                Maybe<Product> maybeProduct = await _productRepository.GetByIdAsync(request.ProductId);
+                Maybe<Product> maybeProduct = await _productRepository.GetByIdAsync(request.ProductId, cancellationToken);
 
                 if (maybeProduct.HasNoValue)
                 {

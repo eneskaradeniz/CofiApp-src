@@ -21,7 +21,7 @@ namespace CofiApp.Application.ProductOptionGroups.Commands.RemoveProductOptionGr
         public async Task<Result> Handle(RemoveProductOptionGroupCommand request, CancellationToken cancellationToken)
         {
             Maybe<ProductOptionGroup> maybeProductOptionGroup = 
-                await _productOptionGroupRepository.GetByIdAsync(request.Id);
+                await _productOptionGroupRepository.GetByIdAsync(request.Id, cancellationToken);
 
             if (maybeProductOptionGroup.HasNoValue)
             {

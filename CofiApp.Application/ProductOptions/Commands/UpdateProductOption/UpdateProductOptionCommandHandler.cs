@@ -20,7 +20,7 @@ namespace CofiApp.Application.ProductOptions.Commands.UpdateProductOption
 
         public async Task<Result> Handle(UpdateProductOptionCommand request, CancellationToken cancellationToken)
         {
-            Maybe<ProductOption> maybeProductOption = await _productOptionRepository.GetByIdAsync(request.Id);
+            Maybe<ProductOption> maybeProductOption = await _productOptionRepository.GetByIdAsync(request.Id, cancellationToken);
 
             if (maybeProductOption.HasNoValue)
             {

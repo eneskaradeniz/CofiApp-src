@@ -32,7 +32,7 @@ namespace CofiApp.Application.MenuCategories.Commands.UpdateMenuCategoriesDispla
 
             foreach (var updateMenuCategoriesDisplayOrder in request.UpdateMenuCategoriesDisplayOrders)
             {
-                Maybe<MenuCategory> maybeMenuCategory = await _menuCategoryRepository.GetByIdAsync(updateMenuCategoriesDisplayOrder.Id);
+                Maybe<MenuCategory> maybeMenuCategory = await _menuCategoryRepository.GetByIdAsync(updateMenuCategoriesDisplayOrder.Id, cancellationToken);
 
                 if (maybeMenuCategory.HasNoValue)
                 {

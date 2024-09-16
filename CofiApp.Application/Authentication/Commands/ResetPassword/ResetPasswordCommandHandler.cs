@@ -40,7 +40,7 @@ namespace CofiApp.Application.Authentication.Commands.ResetPassword
                 return Result.Failure(DomainErrors.Authentication.InvalidPasswordResetToken);
             }
 
-            var maybeUser = await _userRepository.GetByIdAsync(userVerificationToken.UserId);
+            var maybeUser = await _userRepository.GetByIdAsync(userVerificationToken.UserId, cancellationToken);
 
             if (maybeUser.HasNoValue)
             {

@@ -20,7 +20,7 @@ namespace CofiApp.Application.Baskets.Commands.UpdateBasketItemQuantity
 
         public async Task<Result> Handle(UpdateBasketItemQuantityCommand request, CancellationToken cancellationToken)
         {
-            Maybe<BasketItem> maybeBasketItem = await _basketItemRepository.GetByIdAsync(request.BasketItemId);
+            Maybe<BasketItem> maybeBasketItem = await _basketItemRepository.GetByIdAsync(request.BasketItemId, cancellationToken);
 
             if (maybeBasketItem.HasNoValue)
             {

@@ -27,7 +27,7 @@ namespace CofiApp.Application.Users.Commands.UpdateMyProfile
                 return Result.Failure(DomainErrors.General.NotFound);
             }
 
-            var maybeUser = await _userRepository.GetByIdAsync(_userIdentifierProvider.UserId);
+            var maybeUser = await _userRepository.GetByIdAsync(_userIdentifierProvider.UserId, cancellationToken);
 
             if (maybeUser.HasNoValue)
             {

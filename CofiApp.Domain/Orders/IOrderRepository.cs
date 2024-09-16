@@ -4,7 +4,7 @@ namespace CofiApp.Domain.Orders
 {
     public interface IOrderRepository
     {
-        Task<Maybe<Order>> GetByIdAsync(Guid orderId);
+        Task<Maybe<Order>> GetByIdAsync(Guid orderId, CancellationToken cancellationToken = default);
         void Insert(Order order);
         void Update(Order order);
     }

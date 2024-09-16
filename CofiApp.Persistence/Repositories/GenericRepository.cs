@@ -1,7 +1,6 @@
 ﻿using CofiApp.Application.Abstractions.Data;
 using CofiApp.Domain.Core.Primitives;
 using CofiApp.Domain.Core.Primitives.Maybe;
-using Microsoft.EntityFrameworkCore;
 
 namespace CofiApp.Persistence.Repositories
 {
@@ -13,23 +12,22 @@ namespace CofiApp.Persistence.Repositories
         protected IDbContext DbContext { get; }
 
         public async Task<bool> AnyAsync(Guid id, CancellationToken cancellationToken = default) =>
-            await DbContext.Set<TEntity>()
-                .AsNoTracking()
-                .AsQueryable()
-                .AnyAsync(x => x.Id == id, cancellationToken);
+            await DbContext.AnyAsync<TEntity>(id, cancellationToken);
 
-        public async Task<int> CountAsync(CancellationToken cancellationToken = default) => await DbContext.Set<TEntity>().CountAsync(cancellationToken);
-
-        public async Task<Maybe<TEntity>> GetByIdAsync(Guid id) => await DbContext.GetByIdAsync<TEntity>(id);
+        public async Task<Maybe<TEntity>> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) =>
+            await DbContext.GetByIdAsync<TEntity>(id, cancellationToken);
 
         public void Insert(TEntity entity) => DbContext.Insert(entity);
 
         public void InsertRange(IReadOnlyCollection<TEntity> entities) => DbContext.InsertRange(entities);
 
-        public void Update(TEntity entity) => DbContext.Set<TEntity>().Update(entity);
+        public void Update(TEntity entity) => DbContext.Update(entity);
 
         public void Remove(TEntity entity) => DbContext.Remove(entity);
 
-        public void RemoveRange(IReadOnlyCollection<TEntity> entities) => DbContext.Set<TEntity>().RemoveRange(entities);
+        public void RemoveRange(IReadOnlyCollection<TEntity> entities) => DbContext.RemoveRange(entities);
+
+        public async Task<int> CountAsync(CancellationToken cancellationToken = default) =>
+            await DbContext.CountAsync<TEntity>(cancellationToken);
     }
 }

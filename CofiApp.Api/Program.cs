@@ -1,9 +1,9 @@
+using CofiApp.Api.Extensions;
 using CofiApp.Api.Middleware;
 using CofiApp.Application;
 using CofiApp.Infrastructure;
 using CofiApp.Persistence;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -67,6 +67,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     app.UseSwaggerUI(swaggerUiOptions => swaggerUiOptions.SwaggerEndpoint("/swagger/v1/swagger.json", "CofiApp API"));
+    app.ApplyMigrations();
 }
 
 app.UseSerilogRequestLogging();
@@ -82,11 +83,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.Migrate();
-}
 
 app.Run();

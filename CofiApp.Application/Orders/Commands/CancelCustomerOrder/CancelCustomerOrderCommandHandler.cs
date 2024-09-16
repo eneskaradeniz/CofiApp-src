@@ -23,7 +23,7 @@ namespace CofiApp.Application.Orders.Commands.CancelCustomerOrder
 
         public async Task<Result> Handle(CancelCustomerOrderCommand command, CancellationToken cancellationToken)
         {
-            Maybe<Order> maybeOrder = await _orderRepository.GetByIdAsync(command.OrderId);
+            Maybe<Order> maybeOrder = await _orderRepository.GetByIdAsync(command.OrderId, cancellationToken);
 
             if (maybeOrder.HasNoValue)
             {

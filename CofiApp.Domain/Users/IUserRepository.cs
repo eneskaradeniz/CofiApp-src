@@ -4,7 +4,7 @@ namespace CofiApp.Domain.Users
 {
     public interface IUserRepository
     {
-        Task<Maybe<User>> GetByIdAsync(Guid userId);
+        Task<Maybe<User>> GetByIdAsync(Guid userId, CancellationToken cancellationToken = default);
 
         Task<Maybe<User>> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
 

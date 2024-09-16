@@ -1,9 +1,11 @@
 ﻿using CofiApp.Application.Abstractions.Authentication;
+using CofiApp.Application.Abstractions.Caching;
 using CofiApp.Application.Abstractions.Common;
 using CofiApp.Application.Abstractions.Cryptography;
 using CofiApp.Application.Abstractions.Emails;
 using CofiApp.Infrastructure.Authentication;
 using CofiApp.Infrastructure.Authentication.Settings;
+using CofiApp.Infrastructure.Caching;
 using CofiApp.Infrastructure.Common;
 using CofiApp.Infrastructure.Cryptography;
 using CofiApp.Infrastructure.Emails;
@@ -22,6 +24,11 @@ namespace CofiApp.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = configuration.GetConnectionString("Cache");
+            });
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => options.TokenValidationParameters = new()
                 {
@@ -60,6 +67,8 @@ namespace CofiApp.Infrastructure
             services.AddTransient<IPasswordHasher, PasswordHasher>();
 
             services.AddTransient<IEmailService, EmailService>();
+
+            services.AddTransient<ICacheService, CacheService>();
 
             return services;
         }
