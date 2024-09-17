@@ -6,6 +6,7 @@ namespace CofiApp.Contracts.Baskets
     {
         public Guid Id { get; set; }
         public int Quantity { get; set; }
+        public decimal TotalPrice { get; set; }
         public required ProductForBasketItemResponse Product { get; set; }
         public List<BasketItemOptionGroupResponse> BasketItemOptionGroups { get; set; } = [];
     }

@@ -1,6 +1,7 @@
 ﻿using CofiApp.Application.Abstractions.Authentication;
 using CofiApp.Application.Abstractions.Data;
 using CofiApp.Application.Abstractions.Messaging;
+using CofiApp.Application.Abstractions.Notifications;
 using CofiApp.Domain.BasketItemOptionGroups;
 using CofiApp.Domain.BasketItemOptions;
 using CofiApp.Domain.BasketItems;
@@ -25,8 +26,9 @@ namespace CofiApp.Application.Orders.Commands.CreateCustomerOrder
         private readonly IOrderItemOptionRepository _orderItemOptionRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserIdentifierProvider _userIdentifierProvider;
+        private readonly IOrderHubService _orderHubService;
 
-        public CreateCustomerOrderCommandHandler(IBasketRepository basketRepository, IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, IOrderItemOptionGroupRepository orderItemOptionGroupRepository, IOrderItemOptionRepository orderItemOptionRepository, IUnitOfWork unitOfWork, IUserIdentifierProvider userIdentifierProvider)
+        public CreateCustomerOrderCommandHandler(IBasketRepository basketRepository, IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, IOrderItemOptionGroupRepository orderItemOptionGroupRepository, IOrderItemOptionRepository orderItemOptionRepository, IUnitOfWork unitOfWork, IUserIdentifierProvider userIdentifierProvider, IOrderHubService orderHubService)
         {
             _basketRepository = basketRepository;
             _orderRepository = orderRepository;
@@ -35,9 +37,10 @@ namespace CofiApp.Application.Orders.Commands.CreateCustomerOrder
             _orderItemOptionRepository = orderItemOptionRepository;
             _unitOfWork = unitOfWork;
             _userIdentifierProvider = userIdentifierProvider;
+            _orderHubService = orderHubService;
         }
 
-        public async Task<Result> Handle(CreateCustomerOrderCommand command, CancellationToken cancellationToken)
+        public async Task<Result> Handle(CreateCustomerOrderCommand request, CancellationToken cancellationToken)
         {
             // kullanıcının aktif basketi var mı kontrol et
             Maybe<Basket> maybeBasket = await _basketRepository.GetActiveBasketByUserIdAsync(_userIdentifierProvider.UserId, cancellationToken);
@@ -119,7 +122,13 @@ namespace CofiApp.Application.Orders.Commands.CreateCustomerOrder
 
             _orderRepository.Insert(newOrder);
 
+            basket.UpdateStatus(BasketStatus.Completed);
+
+            _basketRepository.Update(basket);
+
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+            await _orderHubService.SendOrderCreatedEventAsync(newOrder.Id.ToString(), cancellationToken);
 
             return Result.Success();
         }

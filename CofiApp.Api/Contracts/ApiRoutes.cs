@@ -123,7 +123,11 @@
 
                 public const string GetById = "shop/orders/{orderId:guid}"; // GET siparişi detaylı getir
 
-                public const string UpdateStatus = "shop/orders/{orderId:guid}/status"; // PATCH siparişin durumunu güncelle
+                public const string Cancel = "shop/orders/{orderId:guid}/cancel"; // PATCH siparişi iptal et
+
+                public const string Process = "shop/orders/{orderId:guid}/process"; // PATCH siparişi işleme al
+
+                public const string Complete = "shop/orders/{orderId:guid}/complete"; // PATCH siparişi tamamla
             }
         }
 
@@ -157,7 +161,7 @@
 
                 public const string Create = "customer/orders"; // POST sipariş oluştur
 
-                public const string Cancel = "customer/orders/{orderId:guid}"; // PATCH siparişi iptal et
+                public const string Cancel = "customer/orders/{orderId:guid}/cancel"; // PATCH siparişi iptal et
             }
         }
     }

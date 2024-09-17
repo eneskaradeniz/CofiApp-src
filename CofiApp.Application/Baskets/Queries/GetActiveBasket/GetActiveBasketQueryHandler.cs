@@ -39,10 +39,12 @@ namespace CofiApp.Application.Baskets.Queries.GetActiveBasketByUser
                 .Select(b => new BasketResponse
                 {
                     Id = b.Id,
+                    TotalPrice = b.TotalPrice,
                     BasketItems = b.BasketItems.Select(bi => new BasketItemResponse
                     {
                         Id = bi.Id,
                         Quantity = bi.Quantity,
+                        TotalPrice = bi.TotalPrice,
                         Product = new ProductForBasketItemResponse
                         {
                             Id = bi.Product.Id,

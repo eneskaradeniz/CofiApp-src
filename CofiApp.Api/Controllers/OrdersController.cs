@@ -1,15 +1,16 @@
 ﻿using CofiApp.Api.Contracts;
 using CofiApp.Api.Infrastructure;
 using CofiApp.Application.Orders.Commands.CancelCustomerOrder;
+using CofiApp.Application.Orders.Commands.CancelShopOrder;
+using CofiApp.Application.Orders.Commands.CompleteShopOrder;
 using CofiApp.Application.Orders.Commands.CreateCustomerOrder;
-using CofiApp.Application.Orders.Commands.UpdateShopOrderStatus;
+using CofiApp.Application.Orders.Commands.ProcessShopOrder;
 using CofiApp.Application.Orders.Queries.GetCustomerOrderById;
 using CofiApp.Application.Orders.Queries.GetCustomerOrders;
 using CofiApp.Application.Orders.Queries.GetShopOrderById;
 using CofiApp.Application.Orders.Queries.GetShopOrders;
 using CofiApp.Contracts.Common;
 using CofiApp.Contracts.Orders;
-using CofiApp.Domain.Core.Errors;
 using CofiApp.Domain.Core.Primitives.Maybe;
 using CofiApp.Domain.Core.Primitives.Result;
 using CofiApp.Domain.Enums;
@@ -45,13 +46,30 @@ namespace CofiApp.Api.Controllers
                 .Bind(query => Mediator.Send(query))
                 .Match(Ok, NotFound);
 
-        [HasPermission(Permission.UpdateShopOrderStatus)]
-        [HttpPatch(ApiRoutes.Shop.Orders.UpdateStatus)]
+        [HasPermission(Permission.CancelShopOrder)]
+        [HttpPatch(ApiRoutes.Shop.Orders.Cancel)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateShopOrderStatus(Guid orderId, [FromBody] UpdateShopOrderStatusRequest updateShopOrderStatusRequest) =>
-            await Result.Create(updateShopOrderStatusRequest, DomainErrors.General.UnProcessableRequest)
-                .Map(request => new UpdateShopOrderStatusCommand(orderId, request.Status))
+        public async Task<IActionResult> CancelShopOrder(Guid orderId) =>
+            await Result.Success(new CancelShopOrderCommand(orderId))
+                .Bind(command => Mediator.Send(command))
+                .Match(NoContent, BadRequest);
+
+        [HasPermission(Permission.ProcessShopOrder)]
+        [HttpPatch(ApiRoutes.Shop.Orders.Process)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ProcessShopOrder(Guid orderId) =>
+            await Result.Success(new ProcessShopOrderCommand(orderId))
+                .Bind(command => Mediator.Send(command))
+                .Match(NoContent, BadRequest);
+
+        [HasPermission(Permission.CompleteShopOrder)]
+        [HttpPatch(ApiRoutes.Shop.Orders.Complete)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CompleteShopOrder(Guid orderId) =>
+            await Result.Success(new CompleteShopOrderCommand(orderId))
                 .Bind(command => Mediator.Send(command))
                 .Match(NoContent, BadRequest);
 
@@ -85,7 +103,7 @@ namespace CofiApp.Api.Controllers
                 .Match(NoContent, BadRequest);
 
         [HasPermission(Permission.CancelCustomerOrder)]
-        [HttpPost(ApiRoutes.Customer.Orders.Cancel)]
+        [HttpPatch(ApiRoutes.Customer.Orders.Cancel)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CancelCustomerOrder(Guid orderId) =>

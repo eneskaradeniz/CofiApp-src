@@ -12,12 +12,17 @@ namespace CofiApp.Application.Orders.Queries.GetShopOrders
     {
         private readonly IDbContext _dbContext;
 
+        public GetShopOrdersQueryHandler(IDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public async Task<Maybe<PagedList<OrderResponse>>> Handle(GetShopOrdersQuery request, CancellationToken cancellationToken)
         {
             IQueryable<OrderResponse> query = _dbContext.Set<Order>()
                 .Include(o => o.OrderItems)
-                    .ThenInclude(oi => oi.OrderItemOptionGroups.DefaultIfEmpty())
-                    .ThenInclude(oig => oig.OrderItemOptions.DefaultIfEmpty())
+                    .ThenInclude(oi => oi.OrderItemOptionGroups)
+                        .ThenInclude(oig => oig.OrderItemOptions)
                 .OrderByDescending(o => o.CreatedOnUtc)
                 .Select(o => new OrderResponse
                 {

@@ -49,11 +49,13 @@
 
         GetShopOrders = 38,
         GetShopOrderById = 39,
-        UpdateShopOrderStatus = 40,
+        CancelShopOrder = 40,
+        ProcessShopOrder = 41,
+        CompleteShopOrder = 42,
 
-        GetCustomerOrders = 41,
-        GetCustomerOrderById = 42,
-        CreateCustomerOrder = 43,
-        CancelCustomerOrder = 44,
+        GetCustomerOrders = 43,
+        GetCustomerOrderById = 44,
+        CreateCustomerOrder = 45,
+        CancelCustomerOrder = 46,
     }
 }

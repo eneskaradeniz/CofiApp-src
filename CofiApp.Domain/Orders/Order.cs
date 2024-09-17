@@ -23,11 +23,6 @@ namespace CofiApp.Domain.Orders
 
         public ICollection<OrderItem> OrderItems { get; set; } = [];
 
-        public void Cancel()
-        {
-            Status = OrderStatus.Cancelled;
-        }
-
         public void UpdateStatus(OrderStatus status)
         {
             Status = status;

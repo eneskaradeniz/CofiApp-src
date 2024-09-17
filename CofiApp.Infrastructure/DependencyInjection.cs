@@ -3,6 +3,9 @@ using CofiApp.Application.Abstractions.Caching;
 using CofiApp.Application.Abstractions.Common;
 using CofiApp.Application.Abstractions.Cryptography;
 using CofiApp.Application.Abstractions.Emails;
+using CofiApp.Application.Abstractions.EventBus;
+using CofiApp.Application.Abstractions.Notifications;
+using CofiApp.Application.Orders.Commands.ProcessShopOrder;
 using CofiApp.Infrastructure.Authentication;
 using CofiApp.Infrastructure.Authentication.Settings;
 using CofiApp.Infrastructure.Caching;
@@ -10,10 +13,15 @@ using CofiApp.Infrastructure.Common;
 using CofiApp.Infrastructure.Cryptography;
 using CofiApp.Infrastructure.Emails;
 using CofiApp.Infrastructure.Emails.Settings;
+using CofiApp.Infrastructure.Messaging;
+using CofiApp.Infrastructure.Messaging.Settings;
+using CofiApp.Infrastructure.Notifications.HubService;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -50,6 +58,31 @@ namespace CofiApp.Infrastructure
 
             services.AddScoped<IPermissionService, PermissionService>();
 
+            services.Configure<MessageBrokerSettings>(configuration.GetSection(MessageBrokerSettings.SettingsKey));
+
+            services.AddSingleton(sp => sp.GetRequiredService<IOptions<MessageBrokerSettings>>().Value);
+
+            services.AddMassTransit(busConfigurator =>
+            {
+                busConfigurator.SetKebabCaseEndpointNameFormatter();
+
+                // Add consumers
+                busConfigurator.AddConsumer<OrderProcessingEventConsumer>();
+
+                busConfigurator.UsingRabbitMq((context, configurator) =>
+                {
+                    var settings = context.GetRequiredService<MessageBrokerSettings>();
+
+                    configurator.Host(new Uri(settings.HostName), h =>
+                    {
+                        h.Username(settings.UserName);
+                        h.Password(settings.Password);
+                    });
+
+                    configurator.ConfigureEndpoints(context);
+                });
+            });
+
             services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SettingsKey));
 
             services.Configure<MailSettings>(configuration.GetSection(MailSettings.SettingsKey));
@@ -68,7 +101,13 @@ namespace CofiApp.Infrastructure
 
             services.AddTransient<IEmailService, EmailService>();
 
+            services.AddTransient<IEventBus, EventBus>();
+
             services.AddTransient<ICacheService, CacheService>();
+
+            services.AddTransient<IOrderHubService, OrderHubService>();
+
+            services.AddSignalR();
 
             return services;
         }

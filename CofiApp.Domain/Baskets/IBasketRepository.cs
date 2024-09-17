@@ -6,5 +6,6 @@ namespace CofiApp.Domain.Baskets
     {
         Task<Maybe<Basket>> GetActiveBasketByUserIdAsync(Guid userId, CancellationToken cancellationToken = default);
         void Insert(Basket basket);
+        void Update(Basket basket);
     }
 }

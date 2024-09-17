@@ -4,6 +4,7 @@ using CofiApp.Application.Abstractions.Messaging;
 using CofiApp.Domain.Core.Errors;
 using CofiApp.Domain.Core.Primitives.Maybe;
 using CofiApp.Domain.Core.Primitives.Result;
+using CofiApp.Domain.Enums;
 using CofiApp.Domain.Orders;
 
 namespace CofiApp.Application.Orders.Commands.CancelCustomerOrder
@@ -37,7 +38,12 @@ namespace CofiApp.Application.Orders.Commands.CancelCustomerOrder
                 return Result.Failure(DomainErrors.General.NotFound);
             }
 
-            order.Cancel();
+            if (order.Status != OrderStatus.Pending || order.Status == OrderStatus.Cancelled)
+            {
+                return Result.Failure(DomainErrors.Order.OrderCannotBeCancelled);
+            }
+
+            order.UpdateStatus(OrderStatus.Cancelled);
 
             _orderRepository.Update(order);
 

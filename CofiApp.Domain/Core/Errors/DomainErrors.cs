@@ -53,5 +53,14 @@ namespace CofiApp.Domain.Core.Errors
         {
             public static Error DuplicateName => new("MenuCategory.DuplicateName", "The specified name is already in use.");
         }
+
+        public static class Order
+        {
+            public static Error OrderCannotBeCancelled => new("Order.OrderCannotBeCancelled", "The order cannot be cancelled.");
+
+            public static Error OrderCannotBeCompleted => new("Order.OrderCannotBeCompleted", "The order cannot be completed.");
+
+            public static Error OrderCannotBeProcessed => new("Order.OrderCannotBeProcessed", "The order cannot be processed.");
+        }
     }
 }
