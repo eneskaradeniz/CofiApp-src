@@ -21,5 +21,7 @@
         public const string Roles = "Roles";
         public const string UserRefreshTokens = "UserRefreshTokens";
         public const string UserVerificationTokens = "UserVerificationTokens";
+        public const string ProductImageFiles = "ProductImageFiles";
+        public const string Files = "Files";
     }
 }

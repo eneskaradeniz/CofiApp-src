@@ -110,5 +110,11 @@ namespace CofiApp.Application.Core.Errors
             internal static Error OrderStatusIsRequired = new("Orders.OrderStatusIsRequired", "The order status is required.");
             internal static Error OrderStatusIsInvalid = new("Orders.OrderStatusIsInvalid", "The order status is invalid.");
         }
+
+        internal static class ProductImageFiles
+        {
+            internal static Error ProductIdIsRequired = new("ProductImageFiles.ProductIdIsRequired", "The product id is required.");
+            internal static Error ImageFileIsRequired = new("ProductImageFiles.ImageFileIsRequired", "The image file is required.");
+        }
     }
 }

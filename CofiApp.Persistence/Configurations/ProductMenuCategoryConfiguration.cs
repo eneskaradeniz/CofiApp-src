@@ -22,6 +22,8 @@ namespace CofiApp.Persistence.Configurations
                 .HasForeignKey(pc => pc.ProductId);
 
             builder.HasQueryFilter(pc => !pc.Product.Deleted);
+
+            builder.Ignore(pc => pc.Id);
         }
     }
 }

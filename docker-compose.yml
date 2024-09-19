@@ -55,3 +55,12 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+  
+  cofiapp.storage:
+    image: mcr.microsoft.com/azure-storage/azurite:latest
+    container_name: CofiApp.Storage
+    volumes:
+      - ./.containers/blob_storage/data:/data
+    ports:
+      - 10000:10000
+    command: azurite-blob --blobHost 0.0.0.0 -l /data

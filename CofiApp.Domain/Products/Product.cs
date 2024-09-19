@@ -2,6 +2,7 @@
 using CofiApp.Domain.Core.Abstractions;
 using CofiApp.Domain.Core.Primitives;
 using CofiApp.Domain.MenuCategories;
+using CofiApp.Domain.ProductImageFiles;
 using CofiApp.Domain.ProductMenuCategories;
 using CofiApp.Domain.ProductOptionGroups;
 
@@ -12,6 +13,9 @@ namespace CofiApp.Domain.Products
         public required string Name { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
+        
+        public Guid? ProductImageFileId { get; set; }
+        public ProductImageFile? ProductImageFile { get; set; }
 
         public DateTime CreatedOnUtc { get; set; }
         public DateTime? ModifiedOnUtc { get; set; }

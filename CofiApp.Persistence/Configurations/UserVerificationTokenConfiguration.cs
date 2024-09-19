@@ -13,20 +13,31 @@ namespace CofiApp.Persistence.Configurations
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.UserId).IsRequired();
-            builder.Property(x => x.Token).IsRequired();
-            builder.Property(x => x.ExpiresOnUtc).IsRequired();
-            builder.Property(x => x.CreatedOnUtc).IsRequired();
-            builder.Property(x => x.TokenType).IsRequired();
-            builder.Property(x => x.IsUsed).IsRequired();
+            builder.Property(x => x.UserId)
+                .IsRequired();
 
-            builder.HasQueryFilter(x => !x.User.Deleted);
+            builder.Property(x => x.Token)
+                .IsRequired();
+
+            builder.Property(x => x.ExpiresOnUtc)
+                .IsRequired();
+
+            builder.Property(x => x.CreatedOnUtc)
+                .IsRequired();
+
+            builder.Property(x => x.TokenType)
+                .IsRequired();
+
+            builder.Property(x => x.IsUsed)
+                .IsRequired();
 
             builder
                  .HasOne(x => x.User)
                  .WithOne(x => x.UserVerificationToken)
                  .HasForeignKey<UserVerificationToken>(x => x.UserId)
                  .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasQueryFilter(x => !x.User.Deleted);
         }
     }
 }

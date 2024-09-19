@@ -30,8 +30,13 @@
             {
                 public const string GetByIdWithDetails = "products/{productId:guid}/details";
             }
-        }
         
+            public static class Files
+            {
+                public const string GetBaseStorageUrl = "files/base-storage-url";
+            }
+        }
+
         public static class Admin
         {
             public static class Users
@@ -115,6 +120,13 @@
                 public const string Update = "shop/product-options/{productOptionId:guid}"; // ürünün grubunun opsiyonunu düzenle
 
                 public const string Remove = "shop/product-options/{productOptionId:guid}"; // ürünün grubunun opsiyonunu sil
+            }
+
+            public static class ProductImageFiles
+            {
+                public const string Upload = "shop/product-image-files/{productId:guid}"; // POST ürün resmi yükle
+
+                public const string Remove = "shop/product-image-files/{productId:guid}"; // DELETE ürün resmini sil
             }
 
             public static class Orders

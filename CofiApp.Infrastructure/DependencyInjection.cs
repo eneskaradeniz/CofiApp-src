@@ -1,10 +1,12 @@
-﻿using CofiApp.Application.Abstractions.Authentication;
+﻿using Azure.Storage.Blobs;
+using CofiApp.Application.Abstractions.Authentication;
 using CofiApp.Application.Abstractions.Caching;
 using CofiApp.Application.Abstractions.Common;
 using CofiApp.Application.Abstractions.Cryptography;
 using CofiApp.Application.Abstractions.Emails;
 using CofiApp.Application.Abstractions.EventBus;
 using CofiApp.Application.Abstractions.Notifications;
+using CofiApp.Application.Abstractions.Storage;
 using CofiApp.Application.Orders.Commands.ProcessShopOrder;
 using CofiApp.Infrastructure.Authentication;
 using CofiApp.Infrastructure.Authentication.Settings;
@@ -16,6 +18,7 @@ using CofiApp.Infrastructure.Emails.Settings;
 using CofiApp.Infrastructure.Messaging;
 using CofiApp.Infrastructure.Messaging.Settings;
 using CofiApp.Infrastructure.Notifications.HubService;
+using CofiApp.Infrastructure.Storage;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -108,6 +111,9 @@ namespace CofiApp.Infrastructure
             services.AddTransient<IOrderHubService, OrderHubService>();
 
             services.AddSignalR();
+
+            services.AddSingleton<IBlobService, BlobService>();
+            services.AddSingleton(_ => new BlobServiceClient(configuration.GetConnectionString("BlobStorage")));
 
             return services;
         }

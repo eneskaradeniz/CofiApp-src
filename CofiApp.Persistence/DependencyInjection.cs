@@ -9,6 +9,7 @@ using CofiApp.Domain.OrderItemOptionGroups;
 using CofiApp.Domain.OrderItemOptions;
 using CofiApp.Domain.OrderItems;
 using CofiApp.Domain.Orders;
+using CofiApp.Domain.ProductImageFiles;
 using CofiApp.Domain.ProductMenuCategories;
 using CofiApp.Domain.ProductOptionGroups;
 using CofiApp.Domain.ProductOptions;
@@ -42,7 +43,7 @@ namespace CofiApp.Persistence
             services.AddScoped<IUnitOfWork>(serviceProdiver =>
                 serviceProdiver.GetRequiredService<ApplicationDbContext>());
 
-            services.AddScoped<IDbSeedData, DbSeedData>();
+            services.AddScoped<IDbSeedData, ApplcationDbSeedData>();
 
             services.AddScoped<IUserRepository, UserRepository>();
 
@@ -77,6 +78,8 @@ namespace CofiApp.Persistence
             services.AddScoped<IOrderItemOptionGroupRepository, OrderItemOptionGroupRepository>();
 
             services.AddScoped<IOrderItemOptionRepository, OrderItemOptionRepository>();
+
+            services.AddScoped<IProductImageFileRepository, ProductImageFileRepository>();
 
             return services;
         }

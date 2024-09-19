@@ -57,5 +57,8 @@
         GetCustomerOrderById = 44,
         CreateCustomerOrder = 45,
         CancelCustomerOrder = 46,
+        
+        UploadProductImageFile = 47,
+        RemoveProductImageFile = 48,
     }
 }

@@ -10,13 +10,20 @@ namespace CofiApp.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Role> builder)
         {
             builder.ToTable(TableNames.Roles);
-            
-            builder.HasKey(x => x.Id);
-            builder.HasIndex(x => x.Name).IsUnique();
 
-            builder.Property(x => x.Name).IsRequired();
-            builder.Property(x => x.CreatedOnUtc).IsRequired();
-            builder.Property(x => x.ModifiedOnUtc);
+            builder.HasKey(x => x.Id);
+
+            builder.HasIndex(x => x.Name)
+                .IsUnique();
+
+            builder.Property(x => x.Name)
+                .IsRequired();
+
+            builder.Property(x => x.CreatedOnUtc)
+                .IsRequired();
+
+            builder.Property(x => x.ModifiedOnUtc)
+                .IsRequired(false);
 
             builder.HasMany(x => x.Permissions)
                 .WithMany()

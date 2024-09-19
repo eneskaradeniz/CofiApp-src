@@ -62,5 +62,10 @@ namespace CofiApp.Domain.Core.Errors
 
             public static Error OrderCannotBeProcessed => new("Order.OrderCannotBeProcessed", "The order cannot be processed.");
         }
+
+        public static class ProductImageFile
+        {
+            public static Error AlreadyRemoved => new("Product.AlreadyRemoved", "The product image file already removed.");
+        }
     }
 }

@@ -40,6 +40,11 @@ namespace CofiApp.Persistence.Configurations
                 .WithOne(pog => pog.Product)
                 .HasForeignKey(pog => pog.ProductId);
 
+            builder.HasOne(p => p.ProductImageFile)
+                .WithOne(pif => pif.Product)
+                .HasForeignKey<Product>(p => p.ProductImageFileId)
+                .IsRequired(false);
+
             builder.HasQueryFilter(p => !p.Deleted);
         }
     }
