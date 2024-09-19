@@ -12,12 +12,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CofiApp.Persistence
 {
-    public class ApplcationDbSeedData : IDbSeedData
+    public class ApplicationDbSeedData : IDbSeedData
     {
         private readonly IDateTime _dateTime;
         private readonly IPasswordHasher _passwordHasher;
 
-        public ApplcationDbSeedData(IPasswordHasher passwordHasher, IDateTime dateTime)
+        public ApplicationDbSeedData(IPasswordHasher passwordHasher, IDateTime dateTime)
         {
             _passwordHasher = passwordHasher;
             _dateTime = dateTime;

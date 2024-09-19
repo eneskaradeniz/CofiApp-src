@@ -43,7 +43,7 @@ namespace CofiApp.Persistence
             services.AddScoped<IUnitOfWork>(serviceProdiver =>
                 serviceProdiver.GetRequiredService<ApplicationDbContext>());
 
-            services.AddScoped<IDbSeedData, ApplcationDbSeedData>();
+            services.AddScoped<IDbSeedData, ApplicationDbSeedData>();
 
             services.AddScoped<IUserRepository, UserRepository>();
 
