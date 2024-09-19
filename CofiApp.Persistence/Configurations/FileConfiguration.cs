@@ -16,7 +16,7 @@ namespace CofiApp.Persistence.Configurations
                 .IsRequired()
                 .HasMaxLength(255);
 
-            builder.Property(f => f.ContainerName)
+            builder.Property(f => f.Path)
                 .IsRequired()
                 .HasMaxLength(255);
 
@@ -27,6 +27,10 @@ namespace CofiApp.Persistence.Configurations
             builder.Property(f => f.Size)
                 .IsRequired()
                 .HasColumnType("bigint");
+
+            builder.Property(f => f.StorageType)
+                .HasConversion<string>()
+                .IsRequired();
 
             builder.Property(f => f.CreatedOnUtc)
                 .IsRequired();

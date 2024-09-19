@@ -14,14 +14,14 @@ namespace CofiApp.Application.ProductImageFiles.Commands.RemoveProductImageFile
     {
         private readonly IProductRepository _productRepository;
         private readonly IProductImageFileRepository _productImageFileRepository;
-        private readonly IBlobService _blobService;
+        private readonly IStorageService _storageService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public RemoveProductImageFileCommandHandler(IProductRepository productRepository, IProductImageFileRepository productImageFileRepository, IBlobService blobService, IUnitOfWork unitOfWork)
+        public RemoveProductImageFileCommandHandler(IProductRepository productRepository, IProductImageFileRepository productImageFileRepository, IStorageService storageService, IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _productImageFileRepository = productImageFileRepository;
-            _blobService = blobService;
+            _storageService = storageService;
             _unitOfWork = unitOfWork;
         }
 
@@ -50,11 +50,11 @@ namespace CofiApp.Application.ProductImageFiles.Commands.RemoveProductImageFile
 
             ProductImageFile productImageFile = maybeProductImageFile.Value;
 
-            await _blobService.DeleteAsync(product.ProductImageFileId ?? Guid.Empty, StorageContainerNames.ProductImages, cancellationToken);
+            await _storageService.DeleteAsync(productImageFile.Id, StorageContainerNames.ProductImages, cancellationToken);
 
             _productImageFileRepository.Remove(productImageFile);
 
-            product.ProductImageFileId = Guid.Empty;
+            product.ProductImageFileId = null;
 
             _productRepository.Update(product);
 

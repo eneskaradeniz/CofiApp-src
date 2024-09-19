@@ -307,8 +307,8 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ac78158f-9853-4b13-b6a7-5014fc05ab86"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 150, DateTimeKind.Utc).AddTicks(2361),
+                            Id = new Guid("38d625fb-6965-41da-a302-2a595829231c"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 761, DateTimeKind.Utc).AddTicks(6894),
                             Name = "Administrator"
                         });
                 });
@@ -330,7 +330,7 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            RoleId = new Guid("ac78158f-9853-4b13-b6a7-5014fc05ab86"),
+                            RoleId = new Guid("38d625fb-6965-41da-a302-2a595829231c"),
                             PermissionId = 1
                         });
                 });
@@ -352,8 +352,8 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("1b171ff7-1bd9-4b5e-bf87-23117bb667a5"),
-                            RoleId = new Guid("ac78158f-9853-4b13-b6a7-5014fc05ab86")
+                            UserId = new Guid("f8c0b3e4-febe-450b-baff-bea13fcdd59c"),
+                            RoleId = new Guid("38d625fb-6965-41da-a302-2a595829231c")
                         });
                 });
 
@@ -473,11 +473,6 @@ namespace CofiApp.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ContainerName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
                     b.Property<string>("ContentType")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -491,8 +486,17 @@ namespace CofiApp.Persistence.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<long>("Size")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("StorageType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -531,22 +535,22 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f5643a9f-30ef-41b1-8e10-72fcbf867e0b"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9327),
+                            Id = new Guid("b878e4c2-87e0-4108-b550-5185359428b3"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3836),
                             DisplayOrder = 1,
                             Name = "Öne Çıkaranlar"
                         },
                         new
                         {
-                            Id = new Guid("c1fea2aa-e375-42d5-a3b8-248c08b616f5"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9329),
+                            Id = new Guid("9035a449-e905-4e67-88cc-244521986ee1"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3838),
                             DisplayOrder = 2,
                             Name = "Sıcak Kahveler"
                         },
                         new
                         {
-                            Id = new Guid("23f2de07-47f2-406b-b4fd-b7b4e9d6e473"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9330),
+                            Id = new Guid("930afb5b-cb65-4ad7-b54a-4e94900bf3df"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3846),
                             DisplayOrder = 3,
                             Name = "Soğuk Kahveler"
                         });
@@ -711,33 +715,33 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            ProductId = new Guid("43d731fc-5a48-4dac-afc7-8b8da9343fd5"),
-                            MenuCategoryId = new Guid("f5643a9f-30ef-41b1-8e10-72fcbf867e0b")
+                            ProductId = new Guid("f1545f8d-739c-4902-848b-efff5fc01cc2"),
+                            MenuCategoryId = new Guid("b878e4c2-87e0-4108-b550-5185359428b3")
                         },
                         new
                         {
-                            ProductId = new Guid("43d731fc-5a48-4dac-afc7-8b8da9343fd5"),
-                            MenuCategoryId = new Guid("c1fea2aa-e375-42d5-a3b8-248c08b616f5")
+                            ProductId = new Guid("f1545f8d-739c-4902-848b-efff5fc01cc2"),
+                            MenuCategoryId = new Guid("9035a449-e905-4e67-88cc-244521986ee1")
                         },
                         new
                         {
-                            ProductId = new Guid("f682b687-bcec-41aa-8b16-63e5af1f5fef"),
-                            MenuCategoryId = new Guid("f5643a9f-30ef-41b1-8e10-72fcbf867e0b")
+                            ProductId = new Guid("77c54e6c-509d-45be-9c68-a538159bd417"),
+                            MenuCategoryId = new Guid("b878e4c2-87e0-4108-b550-5185359428b3")
                         },
                         new
                         {
-                            ProductId = new Guid("f682b687-bcec-41aa-8b16-63e5af1f5fef"),
-                            MenuCategoryId = new Guid("c1fea2aa-e375-42d5-a3b8-248c08b616f5")
+                            ProductId = new Guid("77c54e6c-509d-45be-9c68-a538159bd417"),
+                            MenuCategoryId = new Guid("9035a449-e905-4e67-88cc-244521986ee1")
                         },
                         new
                         {
-                            ProductId = new Guid("a42d9966-8b77-4e2d-9286-025406f0ae74"),
-                            MenuCategoryId = new Guid("23f2de07-47f2-406b-b4fd-b7b4e9d6e473")
+                            ProductId = new Guid("c1b1caa3-1153-414e-83a2-ccec45491202"),
+                            MenuCategoryId = new Guid("930afb5b-cb65-4ad7-b54a-4e94900bf3df")
                         },
                         new
                         {
-                            ProductId = new Guid("bd9e7c0b-5e5d-47f7-80cb-5ae28dbb6d2d"),
-                            MenuCategoryId = new Guid("23f2de07-47f2-406b-b4fd-b7b4e9d6e473")
+                            ProductId = new Guid("98822077-d47d-49aa-bd83-a16d87a29437"),
+                            MenuCategoryId = new Guid("930afb5b-cb65-4ad7-b54a-4e94900bf3df")
                         });
                 });
 
@@ -780,39 +784,39 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("0e72f2e8-85da-4a9b-8453-066239412fce"),
+                            Id = new Guid("77a83bdf-2773-4af3-aa6b-1700b3f187fb"),
                             AllowMultiple = false,
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9467),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3923),
                             IsRequired = true,
                             Name = "Boy Seçimi",
-                            ProductId = new Guid("43d731fc-5a48-4dac-afc7-8b8da9343fd5")
+                            ProductId = new Guid("f1545f8d-739c-4902-848b-efff5fc01cc2")
                         },
                         new
                         {
-                            Id = new Guid("c533fa0e-8810-46ec-aafd-21b9c2a76312"),
+                            Id = new Guid("5131273b-981f-4c7c-9b12-ad4f06c15a20"),
                             AllowMultiple = false,
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9468),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3924),
                             IsRequired = true,
                             Name = "Boy Seçimi",
-                            ProductId = new Guid("f682b687-bcec-41aa-8b16-63e5af1f5fef")
+                            ProductId = new Guid("77c54e6c-509d-45be-9c68-a538159bd417")
                         },
                         new
                         {
-                            Id = new Guid("7a992126-0a2a-4cd5-a9fb-acf5c1b1d1bd"),
+                            Id = new Guid("32b68ebe-5c25-43d2-99a5-5b5109497a78"),
                             AllowMultiple = false,
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9469),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3925),
                             IsRequired = true,
                             Name = "Boy Seçimi",
-                            ProductId = new Guid("bd9e7c0b-5e5d-47f7-80cb-5ae28dbb6d2d")
+                            ProductId = new Guid("98822077-d47d-49aa-bd83-a16d87a29437")
                         },
                         new
                         {
-                            Id = new Guid("dbee91a8-882b-447a-9552-0d677503018c"),
+                            Id = new Guid("9ab6d76e-6218-42ff-97d7-eac060bc052a"),
                             AllowMultiple = false,
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9471),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3931),
                             IsRequired = true,
                             Name = "Boy Seçimi",
-                            ProductId = new Guid("a42d9966-8b77-4e2d-9286-025406f0ae74")
+                            ProductId = new Guid("c1b1caa3-1153-414e-83a2-ccec45491202")
                         });
                 });
 
@@ -848,99 +852,99 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("32902b00-d2ab-42aa-af6d-5e29642b9b40"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9559),
+                            Id = new Guid("3024dbd8-873d-485c-ae41-66ef74eacbde"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3957),
                             Name = "Standart",
                             Price = 0m,
-                            ProductOptionGroupId = new Guid("0e72f2e8-85da-4a9b-8453-066239412fce")
+                            ProductOptionGroupId = new Guid("77a83bdf-2773-4af3-aa6b-1700b3f187fb")
                         },
                         new
                         {
-                            Id = new Guid("fa761f9e-91d9-4dec-96aa-9e2756c8033c"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9562),
+                            Id = new Guid("7a42c8ec-cf79-426c-987b-ad4e7abbccb3"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3959),
                             Name = "Orta",
                             Price = 2m,
-                            ProductOptionGroupId = new Guid("0e72f2e8-85da-4a9b-8453-066239412fce")
+                            ProductOptionGroupId = new Guid("77a83bdf-2773-4af3-aa6b-1700b3f187fb")
                         },
                         new
                         {
-                            Id = new Guid("e43f45f1-5986-4b9a-b142-ca712480b322"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9563),
+                            Id = new Guid("1d010e38-039d-4b87-b184-2bf2b4782e4d"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3960),
                             Name = "Büyük",
                             Price = 4m,
-                            ProductOptionGroupId = new Guid("0e72f2e8-85da-4a9b-8453-066239412fce")
+                            ProductOptionGroupId = new Guid("77a83bdf-2773-4af3-aa6b-1700b3f187fb")
                         },
                         new
                         {
-                            Id = new Guid("7c8b384b-e2f7-41ae-a57b-c118bc560d53"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9564),
+                            Id = new Guid("660481c8-4895-49fb-a450-a1d38b22cbb5"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3961),
                             Name = "Standart",
                             Price = 0m,
-                            ProductOptionGroupId = new Guid("c533fa0e-8810-46ec-aafd-21b9c2a76312")
+                            ProductOptionGroupId = new Guid("5131273b-981f-4c7c-9b12-ad4f06c15a20")
                         },
                         new
                         {
-                            Id = new Guid("d4dc1bc0-665a-4900-bc4d-41c298b5e940"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9566),
+                            Id = new Guid("a156020b-320e-4571-8d23-5ea284ed8bcf"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3962),
                             Name = "Orta",
                             Price = 2m,
-                            ProductOptionGroupId = new Guid("c533fa0e-8810-46ec-aafd-21b9c2a76312")
+                            ProductOptionGroupId = new Guid("5131273b-981f-4c7c-9b12-ad4f06c15a20")
                         },
                         new
                         {
-                            Id = new Guid("89ac0a76-75eb-48cb-8f5f-3a86f66a6955"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9567),
+                            Id = new Guid("df35ba80-01f6-4476-8f60-ed2dc2bd913a"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3963),
                             Name = "Büyük",
                             Price = 4m,
-                            ProductOptionGroupId = new Guid("c533fa0e-8810-46ec-aafd-21b9c2a76312")
+                            ProductOptionGroupId = new Guid("5131273b-981f-4c7c-9b12-ad4f06c15a20")
                         },
                         new
                         {
-                            Id = new Guid("34f951d6-b0d3-453c-8e8e-bf953f5111f4"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9568),
+                            Id = new Guid("cb3a83a7-b5c3-4957-b1c1-1fd87a389768"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3964),
                             Name = "Standart",
                             Price = 0m,
-                            ProductOptionGroupId = new Guid("7a992126-0a2a-4cd5-a9fb-acf5c1b1d1bd")
+                            ProductOptionGroupId = new Guid("32b68ebe-5c25-43d2-99a5-5b5109497a78")
                         },
                         new
                         {
-                            Id = new Guid("262d1ce8-033c-44ca-80f5-72247290a9f9"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9569),
+                            Id = new Guid("4acd8f6f-ed49-40f7-bb99-61da60218586"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3967),
                             Name = "Orta",
                             Price = 2m,
-                            ProductOptionGroupId = new Guid("7a992126-0a2a-4cd5-a9fb-acf5c1b1d1bd")
+                            ProductOptionGroupId = new Guid("32b68ebe-5c25-43d2-99a5-5b5109497a78")
                         },
                         new
                         {
-                            Id = new Guid("49e6579e-3a01-4a56-883b-e743a4b9b613"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9572),
+                            Id = new Guid("a63c9a21-0787-4a62-9820-99e39c0802e7"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3968),
                             Name = "Büyük",
                             Price = 4m,
-                            ProductOptionGroupId = new Guid("7a992126-0a2a-4cd5-a9fb-acf5c1b1d1bd")
+                            ProductOptionGroupId = new Guid("32b68ebe-5c25-43d2-99a5-5b5109497a78")
                         },
                         new
                         {
-                            Id = new Guid("aceec0ee-3c9e-410d-8f92-f99bde4a9aca"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9574),
+                            Id = new Guid("288c8d06-c729-47a5-b9ab-48a3cfd1548c"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3970),
                             Name = "Standart",
                             Price = 0m,
-                            ProductOptionGroupId = new Guid("dbee91a8-882b-447a-9552-0d677503018c")
+                            ProductOptionGroupId = new Guid("9ab6d76e-6218-42ff-97d7-eac060bc052a")
                         },
                         new
                         {
-                            Id = new Guid("d07e026f-62d0-4ca7-a291-88111dde3fd5"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9575),
+                            Id = new Guid("b63a2a09-745b-499d-946b-2a0f824d74d9"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3971),
                             Name = "Orta",
                             Price = 2m,
-                            ProductOptionGroupId = new Guid("dbee91a8-882b-447a-9552-0d677503018c")
+                            ProductOptionGroupId = new Guid("9ab6d76e-6218-42ff-97d7-eac060bc052a")
                         },
                         new
                         {
-                            Id = new Guid("d220a72d-159a-4d67-8641-de417f0fa3f2"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9577),
+                            Id = new Guid("9584d23b-9f0b-4572-8bff-726bfa61bb2a"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3972),
                             Name = "Büyük",
                             Price = 4m,
-                            ProductOptionGroupId = new Guid("dbee91a8-882b-447a-9552-0d677503018c")
+                            ProductOptionGroupId = new Guid("9ab6d76e-6218-42ff-97d7-eac060bc052a")
                         });
                 });
 
@@ -990,32 +994,32 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("43d731fc-5a48-4dac-afc7-8b8da9343fd5"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9429),
+                            Id = new Guid("f1545f8d-739c-4902-848b-efff5fc01cc2"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3877),
                             Deleted = false,
                             Name = "Latte",
                             Price = 15m
                         },
                         new
                         {
-                            Id = new Guid("f682b687-bcec-41aa-8b16-63e5af1f5fef"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9431),
+                            Id = new Guid("77c54e6c-509d-45be-9c68-a538159bd417"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3879),
                             Deleted = false,
                             Name = "Mocha",
                             Price = 20m
                         },
                         new
                         {
-                            Id = new Guid("a42d9966-8b77-4e2d-9286-025406f0ae74"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9433),
+                            Id = new Guid("c1b1caa3-1153-414e-83a2-ccec45491202"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3897),
                             Deleted = false,
                             Name = "Ice Americano",
                             Price = 10m
                         },
                         new
                         {
-                            Id = new Guid("bd9e7c0b-5e5d-47f7-80cb-5ae28dbb6d2d"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9434),
+                            Id = new Guid("98822077-d47d-49aa-bd83-a16d87a29437"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3898),
                             Deleted = false,
                             Name = "Ice Latte",
                             Price = 10m
@@ -1138,14 +1142,14 @@ namespace CofiApp.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1b171ff7-1bd9-4b5e-bf87-23117bb667a5"),
-                            CreatedOnUtc = new DateTime(2024, 9, 19, 1, 11, 47, 153, DateTimeKind.Utc).AddTicks(9194),
+                            Id = new Guid("f8c0b3e4-febe-450b-baff-bea13fcdd59c"),
+                            CreatedOnUtc = new DateTime(2024, 9, 19, 14, 4, 56, 765, DateTimeKind.Utc).AddTicks(3699),
                             Deleted = false,
                             Email = "eneskrdnz28@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Enes",
                             LastName = "Karadeniz",
-                            PasswordHash = "5BBD21B47C970917FE1F5E6CF7A86FE69BD63E69CFEB8F73BE788F9C49264C40-310FB5E7423D30B2D14DB1E339C6B309",
+                            PasswordHash = "5CC26F643A36666DA687F8C28BAEBE9FEBAD3A37353B99500CE00B798D51D639-5E77AD3E3CBA5BDAFC6B592CE6A8D871",
                             PhoneNumberConfirmed = false
                         });
                 });

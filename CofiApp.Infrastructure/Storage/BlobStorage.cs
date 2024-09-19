@@ -3,14 +3,17 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using CofiApp.Application.Abstractions.Storage;
 using CofiApp.Contracts.Files;
+using CofiApp.Domain.Enums;
 
 namespace CofiApp.Infrastructure.Storage
 {
-    internal sealed class BlobService(BlobServiceClient blobServiceClient) : IBlobService
+    internal sealed class BlobStorage(BlobServiceClient blobServiceClient) : IBlobStorage
     {
-        public async Task<Guid> UploadAsync(Stream stream, string contentType, string containerName, CancellationToken cancellationToken = default)
+        public StorageType StorageType => StorageType.Blob;
+
+        public async Task<Guid> UploadAsync(Stream stream, string contentType, string path, CancellationToken cancellationToken = default)
         {
-            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(path);
             await containerClient.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
 
             Guid fileId = Guid.NewGuid();
@@ -24,9 +27,9 @@ namespace CofiApp.Infrastructure.Storage
             return fileId;
         }
 
-        public async Task<FileResponse> DownloadAsync(Guid fileId, string containerName, CancellationToken cancellationToken = default)
+        public async Task<FileResponse> DownloadAsync(Guid fileId, string path, CancellationToken cancellationToken = default)
         {
-            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(path);
 
             BlobClient blobClient = containerClient.GetBlobClient(fileId.ToString());
 
@@ -35,9 +38,9 @@ namespace CofiApp.Infrastructure.Storage
             return new FileResponse(response.Value.Content.ToStream(), response.Value.Details.ContentType);
         }
 
-        public async Task DeleteAsync(Guid fileId, string containerName, CancellationToken cancellationToken = default)
+        public async Task DeleteAsync(Guid fileId, string path, CancellationToken cancellationToken = default)
         {
-            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(path);
 
             BlobClient blobClient = containerClient.GetBlobClient(fileId.ToString());
 

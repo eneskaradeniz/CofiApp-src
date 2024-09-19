@@ -57,10 +57,14 @@ services:
       - 15672:15672
   
   cofiapp.storage:
-    image: mcr.microsoft.com/azure-storage/azurite:latest
+    image: localstack/localstack
     container_name: CofiApp.Storage
-    volumes:
-      - ./.containers/blob_storage/data:/data
     ports:
-      - 10000:10000
-    command: azurite-blob --blobHost 0.0.0.0 -l /data
+      - "4566:4566"
+      - "4571:4571"
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+    volumes:
+      - "./localstack:/var/lib/localstack"
+    

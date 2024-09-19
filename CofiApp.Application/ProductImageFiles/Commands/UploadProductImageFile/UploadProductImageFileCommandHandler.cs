@@ -12,18 +12,14 @@ namespace CofiApp.Application.ProductImageFiles.Commands.UploadProductImageFile
 {
     public class UploadProductImageFileCommandHandler : ICommandHandler<UploadProductImageFileCommand, Result>
     {
-        private readonly IBlobService _storageService;
+        private readonly IStorageService _storageService;
         private readonly IProductRepository _productRepository;
         private readonly IProductImageFileRepository _productImageFileRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public UploadProductImageFileCommandHandler(
-            IBlobService blobService,
-            IProductRepository productRepository,
-            IProductImageFileRepository productImageFileRepository,
-            IUnitOfWork unitOfWork)
+        public UploadProductImageFileCommandHandler(IStorageService storageService, IProductRepository productRepository, IProductImageFileRepository productImageFileRepository, IUnitOfWork unitOfWork)
         {
-            _storageService = blobService;
+            _storageService = storageService;
             _productRepository = productRepository;
             _productImageFileRepository = productImageFileRepository;
             _unitOfWork = unitOfWork;
@@ -31,7 +27,6 @@ namespace CofiApp.Application.ProductImageFiles.Commands.UploadProductImageFile
 
         public async Task<Result> Handle(UploadProductImageFileCommand request, CancellationToken cancellationToken)
         {
-            // productın varlığını kontrol et
             Maybe<Product> maybeProduct =
                 await _productRepository.GetByIdAsync(request.ProductId, cancellationToken);
 
@@ -42,35 +37,41 @@ namespace CofiApp.Application.ProductImageFiles.Commands.UploadProductImageFile
 
             Product product = maybeProduct.Value;
 
-            // önceki resmi varsa sil
-
             if (product.ProductImageFileId is not null)
             {
-                await _storageService.DeleteAsync(product.ProductImageFileId ?? Guid.Empty, StorageContainerNames.ProductImages, cancellationToken);
-            }
+                Maybe<ProductImageFile> maybeProductImageFile = await _productImageFileRepository.GetByIdAsync(product.ProductImageFileId ?? Guid.Empty, cancellationToken);
 
-            // yeni resmi yükle
+                if (maybeProductImageFile.HasNoValue)
+                {
+                    return Result.Failure(DomainErrors.General.NotFound);
+                }
+
+                ProductImageFile productImageFile = maybeProductImageFile.Value;
+
+                await _storageService.DeleteAsync(productImageFile.Id, StorageContainerNames.ProductImages, cancellationToken);
+
+                _productImageFileRepository.Remove(productImageFile);
+
+                product.ProductImageFileId = null;
+            }
 
             using Stream stream = request.ImageFile.OpenReadStream();
             string contentType = request.ImageFile.ContentType;
 
             Guid fileId = await _storageService.UploadAsync(stream, contentType, StorageContainerNames.ProductImages, cancellationToken);
 
-            // product image file ekle
-
-            ProductImageFile productImageFile = new()
+            ProductImageFile newProductImageFile = new()
             {
                 Id = fileId,
                 ProductId = product.Id,
                 Name = request.ImageFile.FileName,
-                ContainerName = StorageContainerNames.ProductImages,
+                Path = StorageContainerNames.ProductImages,
                 ContentType = request.ImageFile.ContentType,
-                Size = request.ImageFile.Length
+                Size = request.ImageFile.Length,
+                StorageType = _storageService.StorageType
             };
 
-            _productImageFileRepository.Insert(productImageFile);
-
-            // product image file id güncelle
+            _productImageFileRepository.Insert(newProductImageFile);
 
             product.ProductImageFileId = fileId;
 

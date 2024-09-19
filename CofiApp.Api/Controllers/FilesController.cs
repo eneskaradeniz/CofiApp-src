@@ -20,6 +20,6 @@ namespace CofiApp.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetBaseStorageUrl() =>
-            Ok(_configuration["BlobStorage:BaseUrl"]);
+            Ok(_configuration["StorageBaseUrl"]);
     }
 }
